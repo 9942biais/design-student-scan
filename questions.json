@@ -1,0 +1,1221 @@
+{
+  "meta": {
+    "id": "designer-inbody-standard-scan",
+    "name": "Designer InBody Standard Scan",
+    "version": "1.0.2",
+    "language": "ko",
+    "description": "디자인 전공 학부생의 포트폴리오 컨설팅을 위한 84문항 사전 자기진단 도구",
+    "purpose": "학생의 작업 역량, 디자인 성향, 진로 환경 적합 가능성, 응답 일관성을 파악하여 포트폴리오 컨설팅의 우선순위를 정한다.",
+    "estimated_time_minutes": {
+      "fast": 8,
+      "standard": 10,
+      "slow": 12
+    },
+    "response_type": "5_point_likert",
+    "is_final_evaluation": false,
+    "disclaimer": "이 결과는 학생의 최종 실력을 판정하는 평가가 아니라, 포트폴리오 컨설팅 전에 참고하는 자기진단 기반 사전 프로파일입니다."
+  },
+  "instructions": {
+    "intro": "아래 문항은 정답이 있는 시험이 아닙니다. 지금까지 해온 여러 디자인 작업을 떠올리며, 나에게 자주 나타났던 방식에 가깝게 답해주세요. 한 번 있었던 특별한 경우보다, 반복적으로 나타난 작업 습관을 기준으로 선택해주세요.",
+    "scale_label": "각 문항에 대해 아래 5점 척도 중 하나를 선택합니다.",
+    "scale": [
+      {
+        "value": 1,
+        "label": "전혀 아니다"
+      },
+      {
+        "value": 2,
+        "label": "아니다"
+      },
+      {
+        "value": 3,
+        "label": "보통이다"
+      },
+      {
+        "value": 4,
+        "label": "그렇다"
+      },
+      {
+        "value": 5,
+        "label": "매우 그렇다"
+      }
+    ]
+  },
+  "scoring": {
+    "normal_score_map": {
+      "1": 0,
+      "2": 25,
+      "3": 50,
+      "4": 75,
+      "5": 100
+    },
+    "reverse_score_map": {
+      "1": 100,
+      "2": 75,
+      "3": 50,
+      "4": 25,
+      "5": 0
+    },
+    "indicator_item_weights": {
+      "behavior": 0.4,
+      "judgment": 0.25,
+      "avoidance": 0.25,
+      "confidence": 0.1
+    },
+    "orientation_tag_weights": {
+      "direct_items_average": 0.6,
+      "related_indicators_average": 0.4
+    },
+    "career_fit_note": "진로 환경 적합성은 판정이 아니라 가능성으로 표시합니다.",
+    "consistency_threshold": {
+      "conflict_pair_min_response": 4,
+      "high_score_response_ratio_warning": {
+        "response_value": 5,
+        "ratio_gte": 0.7
+      }
+    }
+  },
+  "competency_categories": [
+    {
+      "id": "thinking",
+      "name": "Thinking",
+      "ko_name": "사고와 방향 설정",
+      "description": "작업을 시작하고 방향을 잡는 사고 능력",
+      "indicators": [
+        "problem_discovery",
+        "research_discovery",
+        "direction_translation"
+      ]
+    },
+    {
+      "id": "making",
+      "name": "Making",
+      "ko_name": "제작과 구현",
+      "description": "생각을 실제 결과물로 만드는 제작 능력",
+      "indicators": [
+        "aesthetic_sense",
+        "structural_organization",
+        "execution_quality"
+      ]
+    },
+    {
+      "id": "communicating",
+      "name": "Communicating",
+      "ko_name": "정리와 전달",
+      "description": "작업을 다른 사람에게 이해시키고 설득하는 전달 능력",
+      "indicators": [
+        "portfolio_organization",
+        "explanation_flow",
+        "verbal_written_clarity"
+      ]
+    },
+    {
+      "id": "working",
+      "name": "Working",
+      "ko_name": "작업 태도와 습관",
+      "description": "작업을 대하는 태도와 습관",
+      "indicators": [
+        "self_direction",
+        "iteration_improvement",
+        "collaboration_responsibility"
+      ]
+    }
+  ],
+  "indicators": [
+    {
+      "id": "problem_discovery",
+      "name": "문제발견력",
+      "category": "thinking",
+      "description": "과제나 요구사항을 그대로 받아들이지 않고, 그 안에서 진짜 중요한 문제나 방향을 찾아내는 능력"
+    },
+    {
+      "id": "research_discovery",
+      "name": "조사/발견력",
+      "category": "thinking",
+      "description": "자료 조사, 사례 조사, 사람 관찰 등을 통해 작업에 필요한 근거와 중요한 발견을 만들어내는 능력"
+    },
+    {
+      "id": "direction_translation",
+      "name": "방향 전환력",
+      "category": "thinking",
+      "description": "조사나 생각을 바탕으로 핵심 방향을 정하고, 그 방향을 실제 작업 결정으로 연결하는 능력"
+    },
+    {
+      "id": "aesthetic_sense",
+      "name": "조형 감각",
+      "category": "making",
+      "description": "형태, 색, 재료, 이미지, 공간, 움직임, 분위기 등 작업물의 감각적 완성도를 다루는 능력"
+    },
+    {
+      "id": "structural_organization",
+      "name": "구조 구성력",
+      "category": "making",
+      "description": "작업물 안의 요소들이 어떤 관계와 흐름을 갖는지 정리하고, 전체적으로 일관된 구조를 만드는 능력"
+    },
+    {
+      "id": "execution_quality",
+      "name": "구현/완성도",
+      "category": "making",
+      "description": "아이디어를 실제 결과물 수준까지 구체화하고, 세부적인 마감과 완성도를 높이는 능력"
+    },
+    {
+      "id": "portfolio_organization",
+      "name": "작업 정리력",
+      "category": "communicating",
+      "description": "여러 작업을 목적에 맞게 고르고, 순서와 구성을 정리하는 능력"
+    },
+    {
+      "id": "explanation_flow",
+      "name": "설명 흐름",
+      "category": "communicating",
+      "description": "문제, 과정, 결과가 자연스럽게 이어지도록 작업을 설명하는 능력"
+    },
+    {
+      "id": "verbal_written_clarity",
+      "name": "말/글 전달력",
+      "category": "communicating",
+      "description": "자신의 작업을 말이나 글로 쉽고 명확하게 설명하는 능력"
+    },
+    {
+      "id": "self_direction",
+      "name": "자기주도성",
+      "category": "working",
+      "description": "지시를 기다리기보다 스스로 목표와 방향을 세우고 작업을 이끌어가는 태도"
+    },
+    {
+      "id": "iteration_improvement",
+      "name": "반복/개선력",
+      "category": "working",
+      "description": "처음 만든 것에 머무르지 않고, 피드백과 시행착오를 통해 더 나은 방향으로 고치는 태도"
+    },
+    {
+      "id": "collaboration_responsibility",
+      "name": "협업/책임감",
+      "category": "working",
+      "description": "함께 일할 때 자신의 역할을 이해하고, 일정과 결과에 책임 있게 참여하는 태도"
+    }
+  ],
+  "orientation_tags": [
+    {
+      "id": "idea_generator",
+      "name": "Idea Generator",
+      "ko_name": "아이디어 발상형",
+      "description": "새로운 아이디어와 관점을 잘 떠올리는 성향",
+      "direct_questions": [
+        "Q49",
+        "Q50",
+        "Q51",
+        "Q52"
+      ],
+      "related_indicators": [
+        "problem_discovery",
+        "direction_translation"
+      ]
+    },
+    {
+      "id": "process_builder",
+      "name": "Process Builder",
+      "ko_name": "과정 설계형",
+      "description": "문제, 과정, 결과의 관계를 잘 만드는 성향",
+      "direct_questions": [
+        "Q53",
+        "Q54",
+        "Q55",
+        "Q56"
+      ],
+      "related_indicators": [
+        "problem_discovery",
+        "research_discovery",
+        "direction_translation",
+        "explanation_flow"
+      ]
+    },
+    {
+      "id": "visual_stylist",
+      "name": "Visual Stylist",
+      "ko_name": "시각 조형형",
+      "description": "심미성, 스타일링, 조형 감각이 강한 성향",
+      "direct_questions": [
+        "Q57",
+        "Q58",
+        "Q59",
+        "Q60"
+      ],
+      "related_indicators": [
+        "aesthetic_sense",
+        "execution_quality"
+      ]
+    },
+    {
+      "id": "tool_operator",
+      "name": "Tool Operator",
+      "ko_name": "도구 구현형",
+      "description": "필요한 도구와 제작 방법을 익히고 구현하는 성향",
+      "direct_questions": [
+        "Q61",
+        "Q62",
+        "Q63",
+        "Q64"
+      ],
+      "related_indicators": [
+        "execution_quality",
+        "self_direction"
+      ]
+    },
+    {
+      "id": "experience_designer",
+      "name": "Experience Designer",
+      "ko_name": "경험 설계형",
+      "description": "사람의 행동, 사용 흐름, 경험을 잘 보는 성향",
+      "direct_questions": [
+        "Q65",
+        "Q66",
+        "Q67",
+        "Q68"
+      ],
+      "related_indicators": [
+        "problem_discovery",
+        "research_discovery",
+        "structural_organization"
+      ]
+    },
+    {
+      "id": "presentation_editor",
+      "name": "Presentation Editor",
+      "ko_name": "발표 편집형",
+      "description": "작업을 보기 좋게 정리하고 전달하는 성향",
+      "direct_questions": [
+        "Q69",
+        "Q70",
+        "Q71",
+        "Q72"
+      ],
+      "related_indicators": [
+        "portfolio_organization",
+        "explanation_flow",
+        "verbal_written_clarity"
+      ]
+    }
+  ],
+  "career_environments": [
+    {
+      "id": "agency",
+      "name": "에이전시",
+      "description": "다양한 프로젝트와 빠른 전환, 여러 방향 제안, 시각적 완성도 중심의 환경",
+      "direct_questions": [
+        "Q73",
+        "Q79"
+      ],
+      "related_tags": [
+        "idea_generator",
+        "visual_stylist",
+        "presentation_editor",
+        "tool_operator"
+      ],
+      "related_indicators": [
+        "iteration_improvement"
+      ]
+    },
+    {
+      "id": "inhouse",
+      "name": "인하우스 디자인 부서",
+      "description": "하나의 조직, 브랜드, 제품, 서비스 안에서 일관성을 유지하고 오래 개선하는 환경",
+      "direct_questions": [
+        "Q74",
+        "Q78"
+      ],
+      "related_tags": [
+        "process_builder",
+        "experience_designer"
+      ],
+      "related_indicators": [
+        "structural_organization",
+        "collaboration_responsibility",
+        "iteration_improvement"
+      ]
+    },
+    {
+      "id": "startup_independent",
+      "name": "창업/독립 프로젝트",
+      "description": "스스로 문제를 찾고, 불확실한 상황에서 실행하며, 새로운 기회를 만들어가는 환경",
+      "direct_questions": [
+        "Q75",
+        "Q80"
+      ],
+      "related_tags": [
+        "idea_generator",
+        "process_builder",
+        "experience_designer"
+      ],
+      "related_indicators": [
+        "self_direction",
+        "execution_quality"
+      ]
+    },
+    {
+      "id": "studio_freelance",
+      "name": "스튜디오/프리랜서",
+      "description": "자기만의 스타일이나 전문성을 바탕으로 외부 의뢰나 독립 작업을 수행하는 환경",
+      "direct_questions": [
+        "Q76",
+        "Q80"
+      ],
+      "related_tags": [
+        "visual_stylist",
+        "tool_operator",
+        "presentation_editor"
+      ],
+      "related_indicators": [
+        "self_direction",
+        "execution_quality"
+      ]
+    },
+    {
+      "id": "service_experience_planning",
+      "name": "서비스·경험디자인/기획",
+      "description": "사람의 행동, 사용 흐름, 경험의 문제를 파악하고 개선하는 환경",
+      "direct_questions": [
+        "Q77",
+        "Q78"
+      ],
+      "related_tags": [
+        "experience_designer",
+        "process_builder"
+      ],
+      "related_indicators": [
+        "research_discovery",
+        "structural_organization",
+        "verbal_written_clarity"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q01",
+      "text": "나는 작업을 시작할 때, 요구사항을 그대로 받아들이기보다 가장 중요한 문제나 방향을 먼저 정리하는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "problem_discovery",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q02",
+      "text": "나는 “무엇을 만들까?”보다 “왜 이것이 필요한가?”를 먼저 확인하는 것이 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "problem_discovery",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q03",
+      "text": "나는 과제 설명이 있으면, 별도로 문제를 다시 생각하지 않고 바로 만들기 시작하는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "thinking",
+      "indicator": "problem_discovery",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q04",
+      "text": "나는 내 작업이 무엇을 해결하려는지 한 문장으로 말할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "problem_discovery",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q05",
+      "text": "나는 작업을 시작하기 전에 자료, 사례, 사람들의 상황 등을 먼저 살펴보는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "research_discovery",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q06",
+      "text": "나는 조사나 관찰에서 새롭게 알게 된 점이 작업 방향에 영향을 주어야 한다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "research_discovery",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q07",
+      "text": "나는 시간이 부족하면 조사나 관찰 없이 내 감각으로 바로 진행하는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "thinking",
+      "indicator": "research_discovery",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q08",
+      "text": "나는 자료나 사례를 살펴보면서 작업에 쓸 수 있는 중요한 발견을 찾아내는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "research_discovery",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q09",
+      "text": "나는 작업 중 알게 된 사실이나 받은 의견에 따라 방향을 고친 경험이 자주 있다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "direction_translation",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q10",
+      "text": "나는 처음 아이디어보다, 과정을 거치며 더 맞는 방향으로 바꾸는 것이 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "direction_translation",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q11",
+      "text": "나는 한 번 정한 방향을 중간에 바꾸면 작업이 흔들린다고 느끼는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "thinking",
+      "indicator": "direction_translation",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q12",
+      "text": "나는 여러 생각을 하나의 핵심 방향으로 정리할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "thinking",
+      "indicator": "direction_translation",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q13",
+      "text": "나는 형태, 색, 재료, 이미지, 공간, 움직임, 분위기 같은 감각적 요소를 세심하게 살피는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "aesthetic_sense",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q14",
+      "text": "나는 결과물의 느낌과 완성도도 문제 해결만큼 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "aesthetic_sense",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q15",
+      "text": "나는 결과물의 분위기나 세부 표현은 마지막에 시간이 남으면 다듬는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "making",
+      "indicator": "aesthetic_sense",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q16",
+      "text": "내 작업은 전체적인 느낌이나 표현 방식이 분명하게 드러나는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "aesthetic_sense",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q17",
+      "text": "나는 작업물 안의 요소들이 어떤 관계와 순서를 가지는지 정리하는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "structural_organization",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q18",
+      "text": "나는 좋은 결과물은 각 요소가 따로 멋진 것보다 전체가 자연스럽게 이어져야 한다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "structural_organization",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q19",
+      "text": "나는 부분마다 잘 만들면 전체 구조는 크게 신경 쓰지 않아도 된다고 생각하는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "making",
+      "indicator": "structural_organization",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q20",
+      "text": "나는 복잡한 내용을 사람들이 이해하기 쉬운 구조로 정리할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "structural_organization",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q21",
+      "text": "나는 결과물을 제출하기 전, 빠진 부분이나 어색한 부분, 마감 상태를 다시 확인하는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "execution_quality",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q22",
+      "text": "나는 아이디어가 좋더라도 실제로 완성된 모습까지 보여주는 것이 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "execution_quality",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q23",
+      "text": "나는 시간이 부족하면 세부 마감보다 큰 방향만 보여주는 것으로 충분하다고 느끼는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "making",
+      "indicator": "execution_quality",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q24",
+      "text": "나는 원하는 수준의 결과물이 나올 때까지 끝까지 다듬는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "making",
+      "indicator": "execution_quality",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q25",
+      "text": "나는 여러 작업 중 어떤 것을 앞에 보여줄지 목적에 맞게 고르는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "portfolio_organization",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q26",
+      "text": "나는 작업을 많이 보여주는 것보다, 내가 어떤 사람인지 잘 드러나는 구성이 더 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "portfolio_organization",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q27",
+      "text": "나는 만든 작업은 가능한 많이 넣는 것이 좋다고 생각하는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "communicating",
+      "indicator": "portfolio_organization",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q28",
+      "text": "나는 내 작업들을 한눈에 보기 좋게 정리할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "portfolio_organization",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q29",
+      "text": "나는 작업을 설명할 때 문제, 과정, 결과가 이어지도록 정리하려고 한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "explanation_flow",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q30",
+      "text": "나는 결과물만 보여주는 것보다 왜 그렇게 만들었는지 함께 보여주는 것이 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "explanation_flow",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q31",
+      "text": "나는 결과물이 좋으면 과정 설명은 짧거나 없어도 괜찮다고 생각하는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "communicating",
+      "indicator": "explanation_flow",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q32",
+      "text": "나는 내 작업이 어떤 흐름으로 발전했는지 설명할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "explanation_flow",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q33",
+      "text": "나는 내 작업을 말이나 글로 설명하기 전에 핵심 문장을 정리하는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "verbal_written_clarity",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q34",
+      "text": "나는 어려운 말보다 상대가 바로 이해할 수 있는 말로 설명하는 것이 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "verbal_written_clarity",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q35",
+      "text": "나는 머릿속 생각을 말이나 글로 정리하는 것이 자주 어렵다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "communicating",
+      "indicator": "verbal_written_clarity",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q36",
+      "text": "나는 내 작업을 처음 보는 사람에게도 쉽게 설명할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "communicating",
+      "indicator": "verbal_written_clarity",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q37",
+      "text": "나는 누가 자세히 알려주지 않아도 필요한 일을 찾아서 시작하는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "self_direction",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q38",
+      "text": "나는 좋은 작업을 위해 스스로 목표와 기준을 세우는 태도가 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "self_direction",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q39",
+      "text": "나는 명확한 지시가 없으면 무엇부터 해야 할지 몰라 멈추는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "working",
+      "indicator": "self_direction",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q40",
+      "text": "나는 혼자서도 작업 방향을 잡고 끝까지 끌고 갈 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "self_direction",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q41",
+      "text": "나는 처음 만든 것을 그대로 두기보다 여러 번 고치며 발전시키는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "iteration_improvement",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q42",
+      "text": "나는 의견을 받는 것은 작업을 약하게 만드는 것이 아니라 더 나아지게 하는 과정이라고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "iteration_improvement",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q43",
+      "text": "나는 이미 많이 고민해서 만든 작업은 의견을 받아도 크게 바꾸고 싶지 않은 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "working",
+      "indicator": "iteration_improvement",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q44",
+      "text": "나는 피드백이나 시행착오를 바탕으로 결과물을 개선할 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "iteration_improvement",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q45",
+      "text": "나는 함께 작업할 때 내 역할과 마감 시간을 지키려고 노력하는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "collaboration_responsibility",
+      "item_type": "behavior"
+    },
+    {
+      "id": "Q46",
+      "text": "나는 함께 하는 작업에서는 내 부분뿐 아니라 전체 결과물의 완성도도 중요하다고 생각한다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "collaboration_responsibility",
+      "item_type": "judgment"
+    },
+    {
+      "id": "Q47",
+      "text": "나는 내 맡은 부분이 끝나면 다른 부분에는 크게 관여하지 않는 편이다.",
+      "section": "competency",
+      "reverse": true,
+      "category": "working",
+      "indicator": "collaboration_responsibility",
+      "item_type": "avoidance"
+    },
+    {
+      "id": "Q48",
+      "text": "나는 다른 사람과 의견이 달라도 조율하며 작업을 이어갈 수 있는 편이다.",
+      "section": "competency",
+      "reverse": false,
+      "category": "working",
+      "indicator": "collaboration_responsibility",
+      "item_type": "confidence"
+    },
+    {
+      "id": "Q49",
+      "text": "나는 익숙한 주제에서도 새로운 관점이나 다른 가능성을 떠올리는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "idea_generator"
+    },
+    {
+      "id": "Q50",
+      "text": "나는 작업 초반에 하나의 답보다 여러 방향을 넓게 생각해보는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "idea_generator"
+    },
+    {
+      "id": "Q51",
+      "text": "나는 전혀 다른 분야의 사례나 경험에서도 작업의 힌트를 얻는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "idea_generator"
+    },
+    {
+      "id": "Q52",
+      "text": "나는 처음 떠오른 생각이 무난하면, 다른 가능성을 더 찾기보다 그대로 진행하는 편이다.",
+      "section": "orientation",
+      "reverse": true,
+      "orientation_tag": "idea_generator"
+    },
+    {
+      "id": "Q53",
+      "text": "나는 내 작업이 왜 그런 과정으로 발전했는지 설명하는 것을 중요하게 생각한다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "process_builder"
+    },
+    {
+      "id": "Q54",
+      "text": "나는 문제, 이유, 과정, 결과가 서로 이어질 때 좋은 작업이 된다고 생각한다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "process_builder"
+    },
+    {
+      "id": "Q55",
+      "text": "나는 작업 중 선택을 할 때, 왜 이 방향이 맞는지 근거를 생각해보는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "process_builder"
+    },
+    {
+      "id": "Q56",
+      "text": "나는 결과물이 괜찮아 보이면, 과정의 앞뒤 연결은 크게 신경 쓰지 않는 편이다.",
+      "section": "orientation",
+      "reverse": true,
+      "orientation_tag": "process_builder"
+    },
+    {
+      "id": "Q57",
+      "text": "나는 작업물의 첫인상, 분위기, 조형적 완성도를 중요하게 생각한다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "visual_stylist"
+    },
+    {
+      "id": "Q58",
+      "text": "나는 같은 내용이라도 어떤 방식으로 표현하느냐에 따라 작업의 힘이 크게 달라진다고 생각한다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "visual_stylist"
+    },
+    {
+      "id": "Q59",
+      "text": "나는 형태, 색, 재료, 이미지, 공간, 움직임 같은 감각적 요소가 작업의 목적과 어울리는지 살펴보는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "visual_stylist"
+    },
+    {
+      "id": "Q60",
+      "text": "나는 표현이 예쁘거나 멋있으면, 작업의 목적과 조금 어긋나도 괜찮다고 느끼는 편이다.",
+      "section": "orientation",
+      "reverse": true,
+      "orientation_tag": "visual_stylist"
+    },
+    {
+      "id": "Q61",
+      "text": "나는 원하는 표현을 만들기 위해 필요한 도구, 프로그램, 제작 방법을 찾아 배우는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "tool_operator"
+    },
+    {
+      "id": "Q62",
+      "text": "나는 기술적으로 막히는 부분이 있어도 해결 방법을 찾아 구현하려고 하는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "tool_operator"
+    },
+    {
+      "id": "Q63",
+      "text": "나는 새로운 도구나 제작 방법을 시도하는 것에 큰 부담을 느끼지 않는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "tool_operator"
+    },
+    {
+      "id": "Q64",
+      "text": "나는 익숙한 도구로 만들기 어려운 표현은 쉽게 포기하는 편이다.",
+      "section": "orientation",
+      "reverse": true,
+      "orientation_tag": "tool_operator"
+    },
+    {
+      "id": "Q65",
+      "text": "나는 작업물을 보거나 사용하거나 경험할 사람의 상황과 흐름을 생각하는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "experience_designer"
+    },
+    {
+      "id": "Q66",
+      "text": "나는 사람들이 느낄 불편함이나 어려움을 찾아 개선하는 일에 관심이 있다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "experience_designer"
+    },
+    {
+      "id": "Q67",
+      "text": "나는 결과물이 놓일 장소, 시간, 상황, 사용하는 사람에 따라 작업 방향이 달라질 수 있다고 생각한다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "experience_designer"
+    },
+    {
+      "id": "Q68",
+      "text": "나는 결과물이 보기 좋으면, 사람들이 실제로 어떻게 경험할지는 나중에 생각해도 된다고 느끼는 편이다.",
+      "section": "orientation",
+      "reverse": true,
+      "orientation_tag": "experience_designer"
+    },
+    {
+      "id": "Q69",
+      "text": "나는 작업을 보여줄 때 순서, 여백, 크기, 흐름을 정리해 보기 좋게 만드는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "presentation_editor"
+    },
+    {
+      "id": "Q70",
+      "text": "나는 복잡한 작업도 다른 사람이 이해하기 쉽도록 정리하는 데 관심이 있다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "presentation_editor"
+    },
+    {
+      "id": "Q71",
+      "text": "나는 작업을 보여줄 때, 무엇을 먼저 보여주고 무엇을 나중에 보여줄지 신중하게 정하는 편이다.",
+      "section": "orientation",
+      "reverse": false,
+      "orientation_tag": "presentation_editor"
+    },
+    {
+      "id": "Q72",
+      "text": "나는 작업물이 충분히 좋다면, 보여주는 순서나 정리 방식은 크게 중요하지 않다고 생각하는 편이다.",
+      "section": "orientation",
+      "reverse": true,
+      "orientation_tag": "presentation_editor"
+    },
+    {
+      "id": "Q73",
+      "text": "나는 여러 종류의 작업이 빠르게 바뀌는 환경에서도 에너지가 나는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "agency"
+      ]
+    },
+    {
+      "id": "Q74",
+      "text": "나는 하나의 주제나 조직 안에서 오래 다듬고 발전시키는 작업이 잘 맞는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "inhouse"
+      ]
+    },
+    {
+      "id": "Q75",
+      "text": "나는 정답이 분명하지 않은 상황에서도 스스로 문제를 정하고 시작하는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "startup_independent"
+      ]
+    },
+    {
+      "id": "Q76",
+      "text": "나는 나만의 표현 방식이나 전문 분야를 꾸준히 쌓아가는 일이 잘 맞는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "studio_freelance"
+      ]
+    },
+    {
+      "id": "Q77",
+      "text": "나는 사람들의 행동이나 경험 흐름을 살펴보고 개선점을 찾는 일이 흥미롭다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "service_experience_planning"
+      ]
+    },
+    {
+      "id": "Q78",
+      "text": "나는 여러 사람의 의견을 조율하면서 결과물을 발전시키는 일이 잘 맞는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "inhouse",
+        "service_experience_planning"
+      ]
+    },
+    {
+      "id": "Q79",
+      "text": "나는 짧은 시간 안에 여러 안을 만들고 비교하는 방식이 잘 맞는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "agency"
+      ]
+    },
+    {
+      "id": "Q80",
+      "text": "나는 스스로 기회를 만들고, 내 작업을 먼저 제안하는 일이 잘 맞는 편이다.",
+      "section": "career_fit",
+      "reverse": false,
+      "career_environment": [
+        "startup_independent",
+        "studio_freelance"
+      ]
+    },
+    {
+      "id": "Q81",
+      "text": "나는 조사나 정리 없이 바로 만들기 시작할 때 작업이 더 잘 풀리는 편이다.",
+      "section": "consistency",
+      "reverse": true,
+      "consistency_area": [
+        "problem_discovery",
+        "research_discovery"
+      ]
+    },
+    {
+      "id": "Q82",
+      "text": "나는 결과물이 보기 좋으면, 그 이유나 과정은 자세히 설명하지 않아도 된다고 생각한다.",
+      "section": "consistency",
+      "reverse": true,
+      "consistency_area": [
+        "explanation_flow",
+        "process_builder"
+      ]
+    },
+    {
+      "id": "Q83",
+      "text": "나는 의견을 받아도 결국 처음 생각한 방식을 거의 유지하는 편이다.",
+      "section": "consistency",
+      "reverse": true,
+      "consistency_area": [
+        "iteration_improvement",
+        "direction_translation"
+      ]
+    },
+    {
+      "id": "Q84",
+      "text": "나는 함께 하는 작업에서 내 역할이 끝나면 전체 결과에는 크게 관여하지 않는 편이다.",
+      "section": "consistency",
+      "reverse": true,
+      "consistency_area": [
+        "collaboration_responsibility"
+      ]
+    }
+  ],
+  "consistency_rules": [
+    {
+      "id": "P01",
+      "question_a": "Q01",
+      "question_b": "Q03",
+      "area": "problem_discovery",
+      "message": "중요한 문제나 방향을 먼저 정리한다고 답했지만, 과제 설명이 있으면 바로 만들기 시작한다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P02",
+      "question_a": "Q05",
+      "question_b": "Q07",
+      "area": "research_discovery",
+      "message": "자료나 사례를 먼저 살펴본다고 답했지만, 시간이 부족하면 조사 없이 바로 진행한다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P03",
+      "question_a": "Q09",
+      "question_b": "Q11",
+      "area": "direction_translation",
+      "message": "작업 중 알게 된 사실이나 의견에 따라 방향을 고친 경험이 있다고 답했지만, 한 번 정한 방향을 바꾸면 작업이 흔들린다고 느끼는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P04",
+      "question_a": "Q13",
+      "question_b": "Q15",
+      "area": "aesthetic_sense",
+      "message": "감각적 요소를 세심하게 살핀다고 답했지만, 세부 표현은 마지막에 시간이 남으면 다듬는다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P05",
+      "question_a": "Q17",
+      "question_b": "Q19",
+      "area": "structural_organization",
+      "message": "요소들의 관계와 순서를 정리한다고 답했지만, 부분마다 잘 만들면 전체 구조는 크게 신경 쓰지 않아도 된다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P06",
+      "question_a": "Q21",
+      "question_b": "Q23",
+      "area": "execution_quality",
+      "message": "제출 전 빠진 부분과 마감 상태를 확인한다고 답했지만, 시간이 부족하면 세부 마감보다 큰 방향만 보여주면 충분하다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P07",
+      "question_a": "Q25",
+      "question_b": "Q27",
+      "area": "portfolio_organization",
+      "message": "여러 작업 중 무엇을 앞에 보여줄지 목적에 맞게 고른다고 답했지만, 만든 작업은 가능한 많이 넣는 것이 좋다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P08",
+      "question_a": "Q29",
+      "question_b": "Q31",
+      "area": "explanation_flow",
+      "message": "문제, 과정, 결과가 이어지도록 정리한다고 답했지만, 결과물이 좋으면 과정 설명은 없어도 괜찮다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P09",
+      "question_a": "Q33",
+      "question_b": "Q35",
+      "area": "verbal_written_clarity",
+      "message": "설명 전에 핵심 문장을 정리한다고 답했지만, 머릿속 생각을 말이나 글로 정리하는 것이 자주 어렵다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P10",
+      "question_a": "Q37",
+      "question_b": "Q39",
+      "area": "self_direction",
+      "message": "필요한 일을 찾아서 시작한다고 답했지만, 명확한 지시가 없으면 무엇부터 해야 할지 몰라 멈춘다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P11",
+      "question_a": "Q41",
+      "question_b": "Q43",
+      "area": "iteration_improvement",
+      "message": "처음 만든 것을 여러 번 고치며 발전시킨다고 답했지만, 이미 많이 고민한 작업은 의견을 받아도 크게 바꾸고 싶지 않다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P12",
+      "question_a": "Q45",
+      "question_b": "Q47",
+      "area": "collaboration_responsibility",
+      "message": "함께 작업할 때 역할과 마감 시간을 지키려고 한다고 답했지만, 맡은 부분이 끝나면 다른 부분에는 크게 관여하지 않는다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P13",
+      "question_a": "Q05",
+      "question_b": "Q81",
+      "area": "research_discovery",
+      "message": "작업 전에 자료나 사례를 먼저 살펴본다고 답했지만, 조사나 정리 없이 바로 만들 때 작업이 더 잘 풀린다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P14",
+      "question_a": "Q53",
+      "question_b": "Q82",
+      "area": "process_builder",
+      "message": "작업이 왜 그런 과정으로 발전했는지 설명하는 것을 중요하게 생각한다고 답했지만, 결과물이 보기 좋으면 이유나 과정은 자세히 설명하지 않아도 된다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P15",
+      "question_a": "Q42",
+      "question_b": "Q83",
+      "area": "iteration_improvement",
+      "message": "의견을 받는 것은 작업을 더 나아지게 하는 과정이라고 답했지만, 의견을 받아도 결국 처음 생각한 방식을 유지한다는 응답도 높게 나타났습니다."
+    },
+    {
+      "id": "P16",
+      "question_a": "Q46",
+      "question_b": "Q84",
+      "area": "collaboration_responsibility",
+      "message": "함께 하는 작업에서는 전체 결과물의 완성도도 중요하다고 답했지만, 내 역할이 끝나면 전체 결과에는 크게 관여하지 않는다는 응답도 높게 나타났습니다."
+    }
+  ]
+}
