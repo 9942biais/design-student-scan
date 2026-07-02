@@ -56,8 +56,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
 
   // Save to localStorage on change
   const saveToLocalStorage = (updatedInfo: StudentInfo, updatedResponses: SurveyResponses) => {
-    localStorage.setItem('student_info', JSON.stringify(updatedInfo));
-    localStorage.setItem('survey_responses', JSON.stringify(updatedResponses));
+    try {
+      localStorage.setItem('student_info', JSON.stringify(updatedInfo));
+      localStorage.setItem('survey_responses', JSON.stringify(updatedResponses));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -87,8 +91,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
       setStudentInfo(resetInfo);
       setResponses(resetResp);
       setCurrentPage(0);
-      localStorage.removeItem('student_info');
-      localStorage.removeItem('survey_responses');
+      try {
+        localStorage.removeItem('student_info');
+        localStorage.removeItem('survey_responses');
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 

@@ -10,9 +10,18 @@ function App() {
 
   // Load from localStorage on startup
   useEffect(() => {
-    const savedInfoStr = localStorage.getItem('student_info');
-    const savedRespStr = localStorage.getItem('survey_responses');
-    const savedStatus = localStorage.getItem('survey_completed');
+    let savedInfoStr: string | null = null;
+    let savedRespStr: string | null = null;
+    let savedStatus: string | null = null;
+
+    try {
+      savedInfoStr = localStorage.getItem('student_info');
+      savedRespStr = localStorage.getItem('survey_responses');
+      savedStatus = localStorage.getItem('survey_completed');
+    } catch (e) {
+      console.error(e);
+      return;
+    }
 
     if (savedInfoStr) {
       try {
@@ -28,7 +37,7 @@ function App() {
         console.error(e);
       }
     }
-    if (savedStatus === 'true') {
+    if (savedStatus === 'true' && savedInfoStr && savedRespStr) {
       setIsCompleted(true);
     }
   }, []);
@@ -37,32 +46,40 @@ function App() {
     setStudentInfo(info);
     setResponses(resp);
     setIsCompleted(true);
-    localStorage.setItem('survey_completed', 'true');
+    try {
+      localStorage.setItem('survey_completed', 'true');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleRestart = () => {
     if (window.confirm('정말 처음으로 돌아가시겠습니까? 기존 답변은 유지되나 결과 화면을 다시 계산할 수 있습니다.')) {
       setIsCompleted(false);
-      localStorage.removeItem('survey_completed');
+      try {
+        localStorage.removeItem('survey_completed');
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
+  const canShowResult = isCompleted && studentInfo && responses;
+
   return (
     <main className="app-main">
-      {!isCompleted ? (
-        <SurveyPage
-          onComplete={handleComplete}
-          savedInfo={studentInfo}
-          savedResponses={responses}
-        />
-      ) : (
-        studentInfo && responses && (
+      {canShowResult ? (
           <ResultPage
             studentInfo={studentInfo}
             responses={responses}
             onRestart={handleRestart}
           />
-        )
+      ) : (
+        <SurveyPage
+          onComplete={handleComplete}
+          savedInfo={studentInfo}
+          savedResponses={responses}
+        />
       )}
     </main>
   );
