@@ -140,7 +140,7 @@ export function generateReportFeedback(scores: ScoringResult): ReportFeedback {
     consultingPriorities.push("협업 프로젝트의 경우 전체 포트폴리오 안에서 학생의 실질적인 역할 범위와 기여도가 어디서부터 어디까지인지를 명료하게 명시하게 합니다.");
   }
 
-  // 6. Possible Career Fit Text
+  // 6. Possible Career / Role Fit Text
   const sortedCareers = Object.entries(scores.careers)
     .sort((a, b) => b[1] - a[1]);
   const topCareerId = sortedCareers[0][0];
@@ -148,8 +148,8 @@ export function generateReportFeedback(scores: ScoringResult): ReportFeedback {
   const topCareerName = topCareerData?.name || '';
   const topCareerDesc = topCareerData?.description || '';
 
-  const careerFitText = `이 학생은 현재 ${topCareerName} 환경(${topCareerDesc})에 가장 높은 적합 가능성을 보여주고 있습니다. ` +
-    `다만 컨설팅 중에는 해당 진로 환경에 꼭 필요한 핵심 성향(예: ${topTagNameKo})과 포트폴리오 구조가 부합하는지 실제 작업 샘플을 대조하며 최종 확인하시기 바랍니다.`;
+  const careerFitText = `이 학생은 현재 ${topCareerName}(${topCareerDesc})에 가장 높은 적합 가능성을 보여주고 있습니다. ` +
+    `다만 이 결과는 확정 추천이 아니라 자기보고 기반의 진로/역할 가설이므로, 컨설팅 중에는 해당 방향에 필요한 핵심 성향(예: ${topTagNameKo})과 포트폴리오 구조가 부합하는지 실제 작업 샘플을 대조하며 확인하시기 바랍니다.`;
 
   return {
     summary,

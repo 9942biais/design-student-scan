@@ -9,7 +9,7 @@ It is designed to help portfolio consultants quickly understand a student's:
 - design competency profile
 - working tendencies
 - design orientation
-- possible career-environment fit
+- possible career/role fit
 - portfolio development direction
 - response consistency issues
 
@@ -150,7 +150,7 @@ v1.0.2 has four layers.
 | Layer 1 | 4 main competency categories | Understand broad design competency profile |
 | Layer 2 | 12 detailed indicators | Identify strength candidates and areas to check |
 | Layer 3 | 6 design orientation tags | Estimate designer identity and working tendency |
-| Layer 4 | 5 career environment fit types | Suggest possible portfolio development directions |
+| Layer 4 | 5 career/role fit directions | Suggest possible portfolio development directions |
 
 ---
 
@@ -197,17 +197,18 @@ v1.0.2 has four layers.
 
 ---
 
-## 9. Career Environment Fit Types
+## 9. Career / Role Fit Directions
 
-Career environment fit should be shown as a **possibility**, not as a final recommendation.
+Career/role fit should be shown as a **possibility**, not as a final recommendation.
+Some directions describe work environments, while others describe role-oriented work that can appear across multiple environments.
 
-| Environment ID | Name | Description |
+| Direction ID | Name | Description |
 |---|---|---|
-| agency | Agency | Fast-changing environment with diverse projects, quick idea development, and strong visual output |
-| inhouse | In-house Design Department | Long-term environment within one organization, brand, product, or service |
-| startup_independent | Startup / Independent Project | Self-initiated environment where the designer finds problems and creates opportunities |
-| studio_freelance | Studio / Freelance | Independent or client-based environment built around personal style or specialized skills |
-| service_experience_planning | Service / Experience Design & Planning | Environment focused on people's behavior, service flow, experience problems, and improvement |
+| agency | Agency-oriented | Fast-changing environment with diverse clients and projects, quick alternative development, persuasive presentation material, and strong visual output |
+| inhouse | In-house-oriented | Long-term environment within one organization, brand, product, or service where consistency and gradual improvement matter |
+| startup_independent | Startup / Independent Project-oriented | Self-initiated environment where the designer finds problems, acts under uncertainty, and creates new opportunities |
+| studio_freelance | Independent Studio / Freelance-oriented | Independent or client-based environment built around personal style, specialized skills, and self-proposed work |
+| service_experience_planning | Service / Experience Problem-solving-oriented | Role-oriented direction focused on people's behavior, experience flow, stakeholder coordination, and service or experience improvement |
 
 ---
 
@@ -217,7 +218,7 @@ Career environment fit should be shown as a **possibility**, not as a final reco
 |---|---:|
 | 12 detailed competency indicators | 48 |
 | 6 design orientation tags | 24 |
-| Career environment fit | 8 |
+| Career / role fit | 8 |
 | Response consistency support | 4 |
 | Total | 84 |
 
@@ -428,18 +429,18 @@ type Question = {
 
 ---
 
-## F. Career Environment Fit
+## F. Career / Role Fit
 
-| ID | Question | Connected Environment | Reverse |
+| ID | Question | Connected Direction | Reverse |
 |---|---|---|---|
-| Q73 | I feel energized even in environments where many different kinds of work change quickly. | agency | No |
+| Q73 | I feel energized even when many kinds of requests or work conditions change quickly. | agency | No |
 | Q74 | I am well suited to work that develops and improves one topic or organization over a long time. | inhouse | No |
 | Q75 | Even when there is no clear answer, I usually define the problem myself and begin. | startup_independent | No |
-| Q76 | I am well suited to steadily building my own expression style or specialized field. | studio_freelance | No |
-| Q77 | I find it interesting to observe people's behavior or experience flow and find points for improvement. | service_experience_planning | No |
-| Q78 | I am well suited to developing outcomes while coordinating opinions from several people. | inhouse, service_experience_planning | No |
-| Q79 | I am well suited to making and comparing several directions in a short time. | agency | No |
-| Q80 | I am well suited to creating opportunities myself and proposing my work first. | startup_independent, studio_freelance | No |
+| Q76 | I am well suited to steadily building my own expression style or specialized field and connecting it to client-based or independent work. | studio_freelance | No |
+| Q77 | I find it interesting to investigate people's behavior or experience flow and identify problems to improve. | service_experience_planning | No |
+| Q78 | I am well suited to coordinating several people's opinions and conditions and developing them into one outcome. | inhouse, service_experience_planning | No |
+| Q79 | I am well suited to creating, comparing, and proposing several directions in a short time. | agency | No |
+| Q80 | Rather than waiting for a fixed request, I am well suited to finding opportunities myself and proposing my work first. | startup_independent, studio_freelance | No |
 
 ---
 
@@ -545,20 +546,20 @@ Each orientation tag is calculated from:
 
 ---
 
-## 13.6 Career environment fit scoring
+## 13.6 Career / role fit scoring
 
-Career environment fit should be interpreted as possibility, not final classification.
+Career/role fit should be interpreted as possibility, not final classification.
 
 Suggested calculation:
 
 ```text
 career_fit_score =
-  direct career questions average * 0.50
+  direct career/role questions average * 0.50
 + related orientation tags average * 0.30
 + related detailed indicators average * 0.20
 ```
 
-### Agency
+### Agency-oriented
 
 Direct questions:
 
@@ -576,7 +577,7 @@ Related indicators:
 
 - iteration_improvement
 
-### In-house Design Department
+### In-house-oriented
 
 Direct questions:
 
@@ -594,7 +595,7 @@ Related indicators:
 - collaboration_responsibility
 - iteration_improvement
 
-### Startup / Independent Project
+### Startup / Independent Project-oriented
 
 Direct questions:
 
@@ -612,7 +613,7 @@ Related indicators:
 - self_direction
 - execution_quality
 
-### Studio / Freelance
+### Independent Studio / Freelance-oriented
 
 Direct questions:
 
@@ -630,7 +631,7 @@ Related indicators:
 - self_direction
 - execution_quality
 
-### Service / Experience Design & Planning
+### Service / Experience Problem-solving-oriented
 
 Direct questions:
 
@@ -689,7 +690,7 @@ The OnePage result should include:
 5. Strength candidates
 6. Areas to check
 7. Response consistency alerts
-8. Career environment fit possibilities
+8. Career/role fit possibilities
 9. Portfolio development direction
 10. Consulting priorities
 11. Interpretation disclaimer
@@ -750,9 +751,9 @@ However, Communicating appears weaker, so the portfolio structure and explanatio
 - Explanation flow
 - Verbal / Written clarity
 
-### Possible Career Environment Fit
+### Possible Career / Role Fit
 
-This student may fit agency or studio/freelance-like environments.  
+This student may show a possible fit with agency-oriented or independent studio/freelance-oriented directions.  
 However, the consultant should check whether the portfolio shows the ability to respond to different conditions, revise after feedback, and explain why certain design choices were made.
 
 ### Portfolio Development Direction
@@ -807,7 +808,7 @@ The AI Agent should implement:
 5. Calculate 12 indicator scores.
 6. Calculate 4 category scores.
 7. Calculate 6 design orientation tag scores.
-8. Calculate 5 career environment fit scores.
+8. Calculate 5 career/role fit scores.
 9. Detect response consistency issues using the 16 predefined pairs.
 10. Generate a OnePage result view.
 11. Allow the user to save the result as PDF using browser print or client-side PDF export.
@@ -819,7 +820,7 @@ The AI Agent should implement:
 
 **Designer InBody Standard Scan v1.0.2** is an 84-question, 5-point Likert-based self-diagnostic tool for undergraduate design students.
 
-It helps portfolio consultants quickly identify a student's strength candidates, areas to check, design orientation, possible career-environment fit, and portfolio development direction before a portfolio consulting session.
+It helps portfolio consultants quickly identify a student's strength candidates, areas to check, design orientation, possible career/role fit, and portfolio development direction before a portfolio consulting session.
 
 It does not replace long-term observation, portfolio review, or expert judgment.  
 It compresses early understanding into a structured pre-consulting profile.

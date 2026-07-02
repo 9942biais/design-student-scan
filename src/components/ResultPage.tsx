@@ -167,9 +167,9 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           </div>
         </section>
 
-        {/* 5. Career Fit Section */}
+        {/* 5. Career / Role Fit Section */}
         <section className="report-section career-section">
-          <h2 className="report-section-title">진로 환경 적합 가능성 (Career Environment Fit)</h2>
+          <h2 className="report-section-title">진로/역할 적합 가능성 (Career / Role Fit)</h2>
           <div className="career-wrapper">
             <p className="career-fit-eval">{feedback.careerFitText}</p>
             <div className="career-bars-grid">

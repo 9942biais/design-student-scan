@@ -1092,6 +1092,8 @@ a:hover {
 .career-label-row {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
   font-size: var(--fs-caption);
   font-weight: 600;
   margin-bottom: 8px;
@@ -1099,10 +1101,13 @@ a:hover {
 
 .career-name {
   color: var(--text-primary);
+  min-width: 0;
+  line-height: 1.35;
 }
 
 .career-score {
   color: var(--primary-light);
+  flex-shrink: 0;
 }
 
 .career-progress-bg {

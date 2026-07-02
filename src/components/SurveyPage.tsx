@@ -98,7 +98,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   // Page 3: Communicating (competency + category 'communicating')
   // Page 4: Working (competency + category 'working')
   // Page 5: Design Orientation (orientation)
-  // Page 6: Career Environment Fit (career_fit) & Response Consistency (consistency)
+  // Page 6: Career / Role Fit (career_fit) & Response Consistency (consistency)
   const allQuestions = questionsData.questions as Question[];
   const pageSections: PageSection[] = [
     {
@@ -127,8 +127,8 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
       questions: allQuestions.filter(q => q.section === 'orientation')
     },
     {
-      title: '6. 진로 및 응답 교차 검증 (Career Fit & Consistency)',
-      description: '다양한 실무 디자인 환경에 대한 선호 및 응답의 일관성을 마무리 점검합니다.',
+      title: '6. 진로/역할 및 응답 교차 검증 (Career/Role Fit & Consistency)',
+      description: '다양한 실무 디자인 환경과 역할 방향에 대한 선호 및 응답의 일관성을 마무리 점검합니다.',
       questions: allQuestions.filter(q => q.section === 'career_fit' || q.section === 'consistency')
     }
   ];

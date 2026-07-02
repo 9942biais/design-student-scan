@@ -5,7 +5,7 @@
     "version": "1.0.2",
     "language": "ko",
     "description": "디자인 전공 학부생의 포트폴리오 컨설팅을 위한 84문항 사전 자기진단 도구",
-    "purpose": "학생의 작업 역량, 디자인 성향, 진로 환경 적합 가능성, 응답 일관성을 파악하여 포트폴리오 컨설팅의 우선순위를 정한다.",
+    "purpose": "학생의 작업 역량, 디자인 성향, 진로/역할 적합 가능성, 응답 일관성을 파악하여 포트폴리오 컨설팅의 우선순위를 정한다.",
     "estimated_time_minutes": {
       "fast": 8,
       "standard": 10,
@@ -66,7 +66,7 @@
       "direct_items_average": 0.6,
       "related_indicators_average": 0.4
     },
-    "career_fit_note": "진로 환경 적합성은 판정이 아니라 가능성으로 표시합니다.",
+    "career_fit_note": "진로/역할 적합성은 판정이 아니라 가능성으로 표시합니다.",
     "consistency_threshold": {
       "conflict_pair_min_response": 4,
       "high_score_response_ratio_warning": {
@@ -300,8 +300,8 @@
   "career_environments": [
     {
       "id": "agency",
-      "name": "에이전시",
-      "description": "다양한 프로젝트와 빠른 전환, 여러 방향 제안, 시각적 완성도 중심의 환경",
+      "name": "에이전시형",
+      "description": "다양한 클라이언트와 프로젝트를 빠르게 전환하며, 여러 방향의 시안을 만들고 설득 자료와 시각적 완성도를 끌어올리는 환경",
       "direct_questions": [
         "Q73",
         "Q79"
@@ -318,8 +318,8 @@
     },
     {
       "id": "inhouse",
-      "name": "인하우스 디자인 부서",
-      "description": "하나의 조직, 브랜드, 제품, 서비스 안에서 일관성을 유지하고 오래 개선하는 환경",
+      "name": "인하우스형",
+      "description": "하나의 조직, 브랜드, 제품, 서비스 안에서 일관성을 유지하며 오래 개선하고 발전시키는 환경",
       "direct_questions": [
         "Q74",
         "Q78"
@@ -336,8 +336,8 @@
     },
     {
       "id": "startup_independent",
-      "name": "창업/독립 프로젝트",
-      "description": "스스로 문제를 찾고, 불확실한 상황에서 실행하며, 새로운 기회를 만들어가는 환경",
+      "name": "창업/독립 프로젝트형",
+      "description": "스스로 문제를 찾고, 불확실한 상황에서 실행하며, 새로운 기회와 제안의 방향을 만들어가는 환경",
       "direct_questions": [
         "Q75",
         "Q80"
@@ -354,8 +354,8 @@
     },
     {
       "id": "studio_freelance",
-      "name": "스튜디오/프리랜서",
-      "description": "자기만의 스타일이나 전문성을 바탕으로 외부 의뢰나 독립 작업을 수행하는 환경",
+      "name": "독립 스튜디오/프리랜서형",
+      "description": "자기만의 스타일이나 전문성을 바탕으로 외부 의뢰, 독립 작업, 자기 제안을 수행하는 환경",
       "direct_questions": [
         "Q76",
         "Q80"
@@ -372,8 +372,8 @@
     },
     {
       "id": "service_experience_planning",
-      "name": "서비스·경험디자인/기획",
-      "description": "사람의 행동, 사용 흐름, 경험의 문제를 파악하고 개선하는 환경",
+      "name": "서비스·경험 문제해결형",
+      "description": "사람의 행동과 경험 흐름을 조사하고, 이해관계자의 의견을 조율하며, 서비스나 경험의 문제를 개선하는 역할",
       "direct_questions": [
         "Q77",
         "Q78"
@@ -992,7 +992,7 @@
     },
     {
       "id": "Q73",
-      "text": "나는 여러 종류의 작업이 빠르게 바뀌는 환경에서도 에너지가 나는 편이다.",
+      "text": "나는 여러 종류의 의뢰나 작업 조건이 빠르게 바뀌는 환경에서도 에너지가 나는 편이다.",
       "section": "career_fit",
       "reverse": false,
       "career_environment": [
@@ -1019,7 +1019,7 @@
     },
     {
       "id": "Q76",
-      "text": "나는 나만의 표현 방식이나 전문 분야를 꾸준히 쌓아가는 일이 잘 맞는 편이다.",
+      "text": "나는 나만의 표현 방식이나 전문 분야를 꾸준히 쌓아 외부 의뢰나 독립 작업으로 연결하는 일이 잘 맞는 편이다.",
       "section": "career_fit",
       "reverse": false,
       "career_environment": [
@@ -1028,7 +1028,7 @@
     },
     {
       "id": "Q77",
-      "text": "나는 사람들의 행동이나 경험 흐름을 살펴보고 개선점을 찾는 일이 흥미롭다.",
+      "text": "나는 사람들의 행동이나 경험 흐름을 조사하고, 그 안에서 개선할 문제를 찾는 일이 흥미롭다.",
       "section": "career_fit",
       "reverse": false,
       "career_environment": [
@@ -1037,7 +1037,7 @@
     },
     {
       "id": "Q78",
-      "text": "나는 여러 사람의 의견을 조율하면서 결과물을 발전시키는 일이 잘 맞는 편이다.",
+      "text": "나는 여러 사람의 의견과 조건을 조율하면서 하나의 결과물로 발전시키는 일이 잘 맞는 편이다.",
       "section": "career_fit",
       "reverse": false,
       "career_environment": [
@@ -1047,7 +1047,7 @@
     },
     {
       "id": "Q79",
-      "text": "나는 짧은 시간 안에 여러 안을 만들고 비교하는 방식이 잘 맞는 편이다.",
+      "text": "나는 짧은 시간 안에 여러 방향의 안을 만들고 비교·제안하는 방식이 잘 맞는 편이다.",
       "section": "career_fit",
       "reverse": false,
       "career_environment": [
@@ -1056,7 +1056,7 @@
     },
     {
       "id": "Q80",
-      "text": "나는 스스로 기회를 만들고 내 작업을 먼저 제안하는 일이 잘 맞는 편이다.",
+      "text": "나는 정해진 의뢰를 기다리기보다 스스로 기회를 찾고 내 작업을 먼저 제안하는 일이 잘 맞는 편이다.",
       "section": "career_fit",
       "reverse": false,
       "career_environment": [

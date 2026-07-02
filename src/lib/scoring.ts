@@ -109,10 +109,10 @@ export function calculateScores(responses: SurveyResponses): ScoringResult {
     orientationScores[tag.id] = directAvg * 0.60 + relatedAvg * 0.40;
   });
 
-  // 4. Calculate Career Environment Fit Scores (5 types)
+  // 4. Calculate Career / Role Fit Scores (5 types)
   const careerScores: { [careerId: string]: number } = {};
   questionsData.career_environments.forEach((env: any) => {
-    // 4.1 Direct career questions average (50% weight)
+    // 4.1 Direct career/role questions average (50% weight)
     let directSum = 0;
     env.direct_questions.forEach((qId: string) => {
       const q = questionsMap.get(qId);
