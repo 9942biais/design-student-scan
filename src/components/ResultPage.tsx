@@ -173,8 +173,8 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           <div className="career-wrapper">
             <p className="career-fit-eval">{feedback.careerFitText}</p>
             <div className="career-bars-grid">
-              {sortedCareers.map((car) => (
-                <div key={car.id} className="career-bar-item">
+              {sortedCareers.map((car, idx) => (
+                <div key={car.id} className={`career-bar-item rank-${idx + 1}`}>
                   <div className="career-label-row">
                     <span className="career-name">{car.name}</span>
                     <span className="career-score">{car.score}점</span>

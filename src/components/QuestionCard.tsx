@@ -26,7 +26,6 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     <div className={`question-card ${value !== undefined ? 'answered' : ''}`}>
       <div className="question-header">
         <span className="question-number">Q{index.toString().padStart(2, '0')}</span>
-        {question.reverse && <span className="badge badge-reverse">역채점</span>}
       </div>
       <p className="question-text">{question.text}</p>
       
