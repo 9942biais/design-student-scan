@@ -603,8 +603,100 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.consultant-mode-badge {
+  margin-left: auto;
+  padding: 7px 11px;
+  border: 1px solid #c7ead8;
+  border-radius: 999px;
+  color: #315f4c;
+  background: #f1fbf6;
+  font-size: var(--fs-caption);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
 .print-hide {
   display: flex;
+}
+
+.consultant-secret-trigger {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: default;
+  opacity: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(20, 22, 28, 0.38);
+  backdrop-filter: blur(8px);
+}
+
+.pin-modal {
+  width: min(100%, 360px);
+  padding: 24px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  background: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+.pin-modal-title {
+  margin: 0 0 8px;
+  color: var(--text-primary);
+  font-size: var(--fs-subtitle);
+}
+
+.pin-modal-desc {
+  margin: 0 0 16px;
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+
+.pin-input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  background: var(--surface-muted);
+  font-size: var(--fs-body);
+}
+
+.pin-input:focus {
+  border-color: var(--primary-color);
+  background: #ffffff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.14);
+}
+
+.pin-error {
+  margin: 10px 0 0;
+  color: #a23b1a;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+}
+
+.pin-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .report-paper {
