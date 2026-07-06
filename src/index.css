@@ -1147,38 +1147,46 @@ a:hover {
 }
 
 .career-bar-item.rank-1 {
-  border-color: rgba(0, 113, 227, 0.28);
-  background: var(--primary-soft);
+  border-color: rgba(218, 165, 32, 0.44);
+  background: linear-gradient(180deg, #fff8df 0%, #fffdf4 100%);
 }
 
 .career-bar-item.rank-2 {
-  border-color: rgba(52, 168, 83, 0.28);
-  background: #edf8f0;
+  border-color: rgba(150, 158, 170, 0.44);
+  background: linear-gradient(180deg, #f4f6f8 0%, #ffffff 100%);
 }
 
 .career-bar-item.rank-3 {
-  border-color: rgba(255, 159, 10, 0.34);
-  background: #fff7ea;
+  border-color: rgba(184, 115, 51, 0.42);
+  background: linear-gradient(180deg, #fff0e3 0%, #fffaf5 100%);
 }
 
 .career-progress-fill {
   background: var(--primary-color);
 }
 
+.career-bar-item.rank-1 .career-score {
+  color: #b88700;
+}
+
+.career-bar-item.rank-1 .career-progress-fill {
+  background: #d4a017;
+}
+
 .career-bar-item.rank-2 .career-score {
-  color: var(--success-color);
+  color: #7b8490;
 }
 
 .career-bar-item.rank-2 .career-progress-fill {
-  background: var(--success-color);
+  background: #a7adb5;
 }
 
 .career-bar-item.rank-3 .career-score {
-  color: var(--warning-color);
+  color: #a35f25;
 }
 
 .career-bar-item.rank-3 .career-progress-fill {
-  background: #ff9f0a;
+  background: #b87333;
 }
 
 .consistency-box {
