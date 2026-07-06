@@ -434,6 +434,25 @@ a:hover {
   font-size: var(--fs-body);
 }
 
+.missing-response-alert {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid rgba(190, 82, 32, 0.28);
+  border-radius: var(--radius-card);
+  color: #7a3418;
+  background: #fff7ed;
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.missing-response-alert strong {
+  color: #652b13;
+}
+
 .questions-grid {
   display: flex;
   flex-direction: column;
@@ -458,6 +477,12 @@ a:hover {
 .question-card.answered {
   border-color: rgba(0, 113, 227, 0.36);
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+}
+
+.question-card.missing-response {
+  border-color: rgba(190, 82, 32, 0.42);
+  background: #fffaf5;
+  box-shadow: 0 0 0 3px rgba(190, 82, 32, 0.08);
 }
 
 .question-header {

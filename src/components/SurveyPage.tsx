@@ -43,6 +43,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
 
   // 3. Navigation State (0 is Intro/Info page, 1 to 6 are survey pages)
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [missingQuestionIds, setMissingQuestionIds] = useState<string[]>([]);
 
   // Load saved data if present
   useEffect(() => {
@@ -74,6 +75,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   const handleResponseChange = (qId: string, val: number) => {
     const nextResponses = { ...responses, [qId]: val };
     setResponses(nextResponses);
+    if (missingQuestionIds.length > 0 && currentSection) {
+      const nextMissingIds = currentSection.questions
+        .filter(q => nextResponses[q.id] === undefined)
+        .map(q => q.id);
+      setMissingQuestionIds(nextMissingIds);
+    }
     saveToLocalStorage(studentInfo, nextResponses);
   };
 
@@ -91,6 +98,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
       setStudentInfo(resetInfo);
       setResponses(resetResp);
       setCurrentPage(0);
+      setMissingQuestionIds([]);
       try {
         localStorage.removeItem('student_info');
         localStorage.removeItem('survey_responses');
@@ -145,6 +153,13 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   const answeredCount = allQuestions.filter(q => responses[q.id] !== undefined).length;
 
   const currentSection = currentPage > 0 ? pageSections[currentPage - 1] : null;
+  const missingQuestions = currentSection
+    ? currentSection.questions.filter(q => responses[q.id] === undefined)
+    : [];
+  const missingQuestionLabels = missingQuestionIds
+    .map(qId => allQuestions.findIndex(q => q.id === qId) + 1)
+    .filter(index => index > 0)
+    .map(index => `Q${index.toString().padStart(2, '0')}`);
 
   // Check if current page is completely answered
   const isSectionComplete = () => {
@@ -158,21 +173,42 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
       alert('모든 필수 학생 정보를 입력해주세요.');
       return;
     }
+    setMissingQuestionIds([]);
     setCurrentPage(1);
   };
 
   const handleNext = () => {
-    if (!isSectionComplete()) {
-      alert('이 섹션의 모든 문항에 답변해 주세요.');
+    if (missingQuestions.length > 0) {
+      setMissingQuestionIds(missingQuestions.map(q => q.id));
+      window.requestAnimationFrame(() => {
+        document.querySelector('.missing-response-alert')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      });
       return;
     }
+    setMissingQuestionIds([]);
     if (currentPage < pageSections.length) {
       setCurrentPage(currentPage + 1);
       window.scrollTo(0, 0);
     } else {
       // Completed all
       if (answeredCount < totalQuestions) {
-        alert('아직 답변하지 않은 문항이 있습니다. 설문을 다시 확인해주세요.');
+        const nextMissingQuestion = allQuestions.find(q => responses[q.id] === undefined);
+        const nextPageIndex = pageSections.findIndex(section =>
+          section.questions.some(q => q.id === nextMissingQuestion?.id)
+        );
+        if (nextMissingQuestion && nextPageIndex >= 0) {
+          const nextSection = pageSections[nextPageIndex];
+          setCurrentPage(nextPageIndex + 1);
+          setMissingQuestionIds(
+            nextSection.questions
+              .filter(q => responses[q.id] === undefined)
+              .map(q => q.id)
+          );
+          window.scrollTo(0, 0);
+        }
         return;
       }
       onComplete(studentInfo, responses);
@@ -181,6 +217,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
 
   const handlePrev = () => {
     if (currentPage > 0) {
+      setMissingQuestionIds([]);
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
@@ -297,6 +334,13 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
             <p className="section-desc">{currentSection?.description}</p>
           </div>
 
+          {missingQuestionLabels.length > 0 && (
+            <div className="missing-response-alert" role="alert">
+              <strong>아직 응답하지 않은 문항이 있어요.</strong>
+              <span>{missingQuestionLabels.join(', ')} 문항에 답변하면 다음 단계로 이동할 수 있습니다.</span>
+            </div>
+          )}
+
           <div className="questions-grid">
             {currentSection?.questions.map((q) => {
               // Find global index of this question
@@ -308,6 +352,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
                   value={responses[q.id]}
                   onChange={(val) => handleResponseChange(q.id, val)}
                   index={globalIndex}
+                  isMissing={missingQuestionIds.includes(q.id)}
                 />
               );
             })}

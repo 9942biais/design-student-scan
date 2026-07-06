@@ -6,13 +6,15 @@ interface QuestionCardProps {
   value: number | undefined;
   onChange: (val: number) => void;
   index: number;
+  isMissing?: boolean;
 }
 
 export const QuestionCard: React.FC<QuestionCardProps> = ({
   question,
   value,
   onChange,
-  index
+  index,
+  isMissing = false
 }) => {
   const options = [
     { value: 1, label: '전혀 아니다' },
@@ -23,7 +25,7 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
   ];
 
   return (
-    <div className={`question-card ${value !== undefined ? 'answered' : ''}`}>
+    <div className={`question-card ${value !== undefined ? 'answered' : ''} ${isMissing ? 'missing-response' : ''}`}>
       <div className="question-header">
         <span className="question-number">Q{index.toString().padStart(2, '0')}</span>
       </div>
