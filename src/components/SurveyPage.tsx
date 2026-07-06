@@ -201,7 +201,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
             <div className="alert alert-info">
               {questionsData.meta.disclaimer}
             </div>
-            <p className="time-est">⏱️ 소요 시간: 약 {questionsData.meta.estimated_time_minutes.standard}분 (총 {totalQuestions}문항)</p>
+            <p className="time-est">소요 시간: 약 {questionsData.meta.estimated_time_minutes.standard}분 · 총 {totalQuestions}문항</p>
           </div>
 
           <form onSubmit={handleStart} className="info-form">

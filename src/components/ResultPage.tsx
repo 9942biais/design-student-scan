@@ -59,7 +59,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
       {/* Action Header (Hidden in Print) */}
       <div className="action-header print-hide">
         <button type="button" onClick={onRestart} className="btn btn-secondary">
-          ← 처음으로 (다시 테스트)
+          처음으로
         </button>
         <PdfExportButton studentName={studentInfo.name} />
       </div>
@@ -108,7 +108,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         {/* 3. Strengths & Areas to Check (Two-column) */}
         <section className="report-section two-col-section">
           <div className="col-box strengths-box">
-            <h3 className="section-col-title text-success">👍 강점 후보 (Strength Candidates)</h3>
+            <h3 className="section-col-title text-success">강점 후보 (Strength Candidates)</h3>
             <ul className="indicator-list">
               {feedback.strengths.map((item, idx) => (
                 <li key={item.id} className="indicator-list-item">
@@ -123,7 +123,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           </div>
 
           <div className="col-box checks-box">
-            <h3 className="section-col-title text-warning">🔍 체크 필요 영역 (Areas to Check)</h3>
+            <h3 className="section-col-title text-warning">체크 필요 영역 (Areas to Check)</h3>
             <ul className="indicator-list">
               {feedback.checks.map((item, idx) => (
                 <li key={item.id} className="indicator-list-item">
@@ -191,7 +191,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         {/* 6. Portfolio Development Directions & Consulting Priorities (Two-column) */}
         <section className="report-section two-col-section">
           <div className="col-box directions-box">
-            <h3 className="section-col-title text-primary">📂 추천 포토폴리오 전개 방향</h3>
+            <h3 className="section-col-title text-primary">추천 포트폴리오 전개 방향</h3>
             <ul className="bullet-list">
               {feedback.portfolioDirections.map((dir, idx) => (
                 <li key={idx}>{dir}</li>
@@ -200,7 +200,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           </div>
 
           <div className="col-box priorities-box">
-            <h3 className="section-col-title text-accent">🎯 컨설팅 우선순위 체크리스트</h3>
+            <h3 className="section-col-title text-accent">컨설팅 우선순위 체크리스트</h3>
             <ul className="bullet-list">
               {feedback.consultingPriorities.map((prior, idx) => (
                 <li key={idx}>{prior}</li>
@@ -228,7 +228,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
                       <div>• {alert.questionB}번 답변: <span className="text-warning font-semibold">{alert.valueB}점</span> (문항: {alert.questionBText})</div>
                     </div>
                     <div className="consulting-guide-tip">
-                      <strong>💡 컨설팅 권장 가이드:</strong> {CONSISTENCY_GUIDANCE[alert.id] || "두 질문의 응답 배경과 실제 수행 능력을 점검하세요."}
+                      <strong>컨설팅 권장 가이드:</strong> {CONSISTENCY_GUIDANCE[alert.id] || "두 질문의 응답 배경과 실제 수행 능력을 점검하세요."}
                     </div>
                   </div>
                 </div>

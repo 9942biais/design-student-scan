@@ -61,8 +61,8 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
           >
             <defs>
               <radialGradient id="radarGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(99,102,241,0.12)" />
-                <stop offset="100%" stopColor="rgba(99,102,241,0.42)" />
+                <stop offset="0%" stopColor="rgba(0,113,227,0.08)" />
+                <stop offset="100%" stopColor="rgba(0,113,227,0.28)" />
               </radialGradient>
             </defs>
 
