@@ -113,7 +113,8 @@ Suggested instruction:
 
 > This is not a test with right or wrong answers.  
 > Please think about the design works you have done so far and answer based on the way you usually work.  
-> Rather than focusing on one exceptional case, choose the answer that best reflects your repeated working habits.
+> Rather than focusing on one exceptional case, choose the answer that best reflects your repeated working habits.  
+> Choose the option closest to your usual pattern, even if another option seems more ideal.
 
 ### 3.4 Low-friction input
 
@@ -253,28 +254,28 @@ type Question = {
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q01 | When I start a project, I usually organize the most important problem or direction before simply following the given requirements. | behavior | No |
-| Q02 | I think it is important to ask “why is this needed?” before asking “what should I make?” | judgment | No |
-| Q03 | When I receive assignment requirements, I usually start making right away without thinking again about the problem. | avoidance | Yes |
-| Q04 | I can usually explain in one sentence what my work is trying to solve. | confidence | No |
+| Q01 | At the start of a project, I usually sort out what seems most important before deciding what to make. | behavior | No |
+| Q02 | I tend to spend time clarifying why the work is needed before choosing the form of the outcome. | judgment | No |
+| Q03 | When the assignment requirements feel clear enough, I tend to move into making before restating the problem in my own words. | avoidance | Yes |
+| Q04 | I can usually describe the main issue or direction of my work in one short sentence. | confidence | No |
 
 ### 2. Research / Discovery
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q05 | Before starting a project, I usually look at materials, examples, or people's situations first. | behavior | No |
-| Q06 | I think that things newly learned from looking up materials or observing people should affect the direction of the work. | judgment | No |
-| Q07 | When time is short, I usually move forward based on my own sense without looking up materials or observing people. | avoidance | Yes |
-| Q08 | While looking at materials or examples, I usually find important discoveries that can be used in my work. | confidence | No |
+| Q05 | Before settling on a direction, I usually look at materials, examples, or people's situations. | behavior | No |
+| Q06 | What I find from materials, examples, or observation often changes how I think about the work. | judgment | No |
+| Q07 | When time is tight, I tend to rely on my current sense of the situation instead of looking up more materials or observing people. | avoidance | Yes |
+| Q08 | I can usually find something useful for my work while looking at materials, examples, or people's situations. | confidence | No |
 
 ### 3. Direction Translation
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q09 | I have often changed direction based on things I learned or feedback I received during the work process. | behavior | No |
-| Q10 | I think it is important to change toward a more suitable direction through the process, rather than sticking to the first idea. | judgment | No |
-| Q11 | I usually feel that changing direction in the middle makes the project unstable. | avoidance | Yes |
-| Q12 | I can usually organize multiple thoughts into one core direction. | confidence | No |
+| Q09 | During a project, I have often adjusted the direction based on what I learned or feedback I received. | behavior | No |
+| Q10 | I am comfortable letting the direction change when the process shows a better fit. | judgment | No |
+| Q11 | Once a direction has been chosen, I usually prefer to protect it from major changes during the project. | avoidance | Yes |
+| Q12 | I can usually gather several thoughts into one main direction. | confidence | No |
 
 ---
 
@@ -284,28 +285,28 @@ type Question = {
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q13 | I usually pay close attention to sensory elements such as form, color, material, image, space, movement, and atmosphere. | behavior | No |
-| Q14 | I think the feeling and finish of the outcome are as important as solving the problem. | judgment | No |
-| Q15 | I usually refine the atmosphere or detailed expression only at the end if there is time left. | avoidance | Yes |
-| Q16 | My work usually has a clear overall feeling or expression style. | confidence | No |
+| Q13 | While working, I usually make choices about sensory elements such as form, color, material, image, space, movement, and atmosphere. | behavior | No |
+| Q14 | I often judge whether a work is working by looking at both its purpose and its feeling or finish. | judgment | No |
+| Q15 | I tend to decide the atmosphere or detailed expression after the main structure has already been made. | avoidance | Yes |
+| Q16 | My work usually has an overall feeling or expression style that I can recognize clearly. | confidence | No |
 
 ### 5. Structural Organization
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q17 | I usually organize the relationships and order among the elements in my work. | behavior | No |
-| Q18 | I think good work should feel naturally connected as a whole, rather than having each element look good separately. | judgment | No |
-| Q19 | I usually think that if each part is well made, the overall structure does not need much attention. | avoidance | Yes |
-| Q20 | I can usually organize complex content into a structure that people can understand easily. | confidence | No |
+| Q17 | I usually spend time arranging the relationships and order among the elements in my work. | behavior | No |
+| Q18 | I tend to look at whether the parts of a work connect as a whole, not only whether each part works by itself. | judgment | No |
+| Q19 | When each part is working well, I do not usually spend much extra time adjusting the overall relationship among parts. | avoidance | Yes |
+| Q20 | I can usually turn complex content into a structure that other people can follow. | confidence | No |
 
 ### 6. Execution Quality
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q21 | Before submitting an outcome, I usually check for missing parts, awkward parts, and the finishing quality. | behavior | No |
-| Q22 | I think that even if the idea is good, it is important to show it in a finished form. | judgment | No |
-| Q23 | When time is short, I usually feel that showing only the big direction is enough, even if the details are unfinished. | avoidance | Yes |
-| Q24 | I usually keep refining my work until it reaches the level I want. | confidence | No |
+| Q21 | Before submitting an outcome, I usually check for missing parts, awkward parts, and finishing quality. | behavior | No |
+| Q22 | I tend to feel more confident about an idea when it has been made into a clear finished form. | judgment | No |
+| Q23 | When time is tight, I put the main direction first and accept that some details may stay rough. | avoidance | Yes |
+| Q24 | I usually keep adjusting my work until it reaches a level I can accept. | confidence | No |
 
 ---
 
@@ -315,28 +316,28 @@ type Question = {
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q25 | I usually choose which works to show first depending on the purpose. | behavior | No |
-| Q26 | I think a structure that clearly shows who I am is more important than showing many works. | judgment | No |
-| Q27 | I usually think it is better to include as many completed works as possible. | avoidance | Yes |
-| Q28 | I can usually organize my works so they are easy to see at a glance. | confidence | No |
+| Q25 | When showing my work, I usually choose the order depending on the purpose. | behavior | No |
+| Q26 | I tend to make selections based on what kind of designer I want to show, not only on how many works I have. | judgment | No |
+| Q27 | When preparing a portfolio, I feel more comfortable showing a wider range of completed works than making a very small selection. | avoidance | Yes |
+| Q28 | I can usually arrange my works so their overall direction is easy to grasp. | confidence | No |
 
 ### 8. Explanation Flow
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q29 | When explaining my work, I try to organize the problem, process, and result so they connect. | behavior | No |
-| Q30 | I think it is important to show why I made something, not just the final outcome. | judgment | No |
-| Q31 | I usually think that if the outcome is good, the process explanation can be short or missing. | avoidance | Yes |
-| Q32 | I can usually explain how my work developed over time. | confidence | No |
+| Q29 | When explaining my work, I usually connect the starting point, process, and result. | behavior | No |
+| Q30 | I tend to include the reason behind a work along with the final outcome. | judgment | No |
+| Q31 | If the final outcome is strong, I tend to keep the process explanation brief. | avoidance | Yes |
+| Q32 | I can usually explain how my work changed or developed over time. | confidence | No |
 
 ### 9. Verbal / Written Clarity
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q33 | Before explaining my work in speech or writing, I usually organize the key sentence first. | behavior | No |
-| Q34 | I think it is important to explain with words that the other person can understand immediately, rather than using difficult words. | judgment | No |
-| Q35 | I often find it difficult to organize thoughts in my head into speech or writing. | avoidance | Yes |
-| Q36 | I can usually explain my work easily to someone seeing it for the first time. | confidence | No |
+| Q33 | Before explaining my work in speech or writing, I usually prepare the key sentence first. | behavior | No |
+| Q34 | I tend to choose words that the other person can understand quickly. | judgment | No |
+| Q35 | It usually takes me some time to turn thoughts in my head into clear speech or writing. | avoidance | Yes |
+| Q36 | I can usually explain my work to someone who is seeing it for the first time. | confidence | No |
 
 ---
 
@@ -346,27 +347,27 @@ type Question = {
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q37 | Even when no one explains everything in detail, I usually find what needs to be done and start. | behavior | No |
-| Q38 | I think it is important to set my own goals and standards for good work. | judgment | No |
-| Q39 | When there is no clear instruction, I usually stop because I do not know where to begin. | avoidance | Yes |
+| Q37 | Even when not everything is explained in detail, I usually find a starting point and begin. | behavior | No |
+| Q38 | I tend to set my own goals or standards while working, even when the assignment is open. | judgment | No |
+| Q39 | When instructions are open, I usually need some outside direction before deciding where to begin. | avoidance | Yes |
 | Q40 | I can usually set a direction and carry the work through to the end on my own. | confidence | No |
 
 ### 11. Iteration / Improvement
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q41 | Rather than leaving the first version as it is, I usually improve it through several revisions. | behavior | No |
-| Q42 | I think receiving feedback is not something that weakens the work, but a process that makes it better. | judgment | No |
-| Q43 | If I have already thought a lot about a work, I usually do not want to change it much even after receiving feedback. | avoidance | Yes |
+| Q41 | After making a first version, I usually revise it through several attempts. | behavior | No |
+| Q42 | I tend to treat feedback as material I can use to adjust the work. | judgment | No |
+| Q43 | After I have spent a long time thinking through a direction, I tend to make smaller adjustments rather than changing the main direction after feedback. | avoidance | Yes |
 | Q44 | I can usually improve the outcome based on feedback or trial and error. | confidence | No |
 
 ### 12. Collaboration / Responsibility
 
 | ID | Question | Type | Reverse |
 |---|---|---|---|
-| Q45 | When working with others, I usually try to keep my role and deadline. | behavior | No |
-| Q46 | In collaborative work, I think the quality of the whole outcome is important, not only my part. | judgment | No |
-| Q47 | Once my assigned part is finished, I usually do not get deeply involved in other parts. | avoidance | Yes |
+| Q45 | When working with others, I usually manage my role and deadline. | behavior | No |
+| Q46 | In collaborative work, I tend to pay attention to how my part affects the whole outcome. | judgment | No |
+| Q47 | In group work, I tend to focus first on completing my assigned part before getting involved in other parts. | avoidance | Yes |
 | Q48 | Even when I disagree with others, I can usually coordinate opinions and continue working. | confidence | No |
 
 ---
@@ -377,55 +378,55 @@ type Question = {
 
 | ID | Question | Reverse |
 |---|---|---|
-| Q49 | Even with familiar topics, I usually think of new perspectives or other possibilities. | No |
-| Q50 | At the beginning of a project, I usually think broadly about several directions rather than one answer. | No |
-| Q51 | I often get hints for my work from examples or experiences in completely different fields. | No |
-| Q52 | If my first idea seems acceptable, I usually proceed with it rather than looking for more possibilities. | Yes |
+| Q49 | Even with familiar topics, I usually try changing the viewpoint or looking for another angle. | No |
+| Q50 | At the beginning of a project, I usually explore several possible directions before narrowing down. | No |
+| Q51 | I often get hints for my work from examples or experiences outside the immediate topic. | No |
+| Q52 | When an early direction already fits the assignment, I usually prefer to develop it rather than keep searching for other options. | Yes |
 
 ### 14. Process Builder
 
 | ID | Question | Reverse |
 |---|---|---|
-| Q53 | I think it is important to explain why my work developed through a certain process. | No |
-| Q54 | I think good work happens when problem, reason, process, and result are connected. | No |
-| Q55 | When making choices during a project, I usually think about why this direction is suitable. | No |
-| Q56 | If the outcome looks good, I usually do not pay much attention to whether the process is connected from beginning to end. | Yes |
+| Q53 | When presenting work, I usually show how the direction developed through the process. | No |
+| Q54 | I feel more comfortable with work when the problem, choices, process, and result can be traced as one line. | No |
+| Q55 | When making choices during a project, I usually think about why a direction fits the situation. | No |
+| Q56 | When the outcome communicates clearly, I do not always feel the full process needs to be shown. | Yes |
 
 ### 15. Visual Stylist
 
 | ID | Question | Reverse |
 |---|---|---|
-| Q57 | I care strongly about the first impression, atmosphere, and visual or formal finish of my work. | No |
-| Q58 | I think the power of a work can change greatly depending on how the same content is expressed. | No |
-| Q59 | I usually check whether sensory elements such as form, color, material, image, space, and movement match the purpose of the work. | No |
-| Q60 | If the expression looks beautiful or impressive, I sometimes feel it is acceptable even if it does not fully match the purpose. | Yes |
+| Q57 | I pay close attention to the first impression, atmosphere, and visual or formal finish of my work. | No |
+| Q58 | I often feel that the same content can feel very different depending on how it is expressed. | No |
+| Q59 | I usually check whether sensory elements such as form, color, material, image, space, and movement fit the purpose of the work. | No |
+| Q60 | When I find a strong expression, I sometimes keep it even if the connection to the original purpose needs more explanation. | Yes |
 
 ### 16. Tool Operator
 
 | ID | Question | Reverse |
 |---|---|---|
-| Q61 | I usually learn the tools, software, or production methods needed to create the expression I want. | No |
-| Q62 | Even when I get stuck technically, I usually try to find a way to realize the idea. | No |
+| Q61 | I usually learn the tools, software, or production methods needed for the expression I want. | No |
+| Q62 | Even when I get stuck technically, I usually look for another way to realize the idea. | No |
 | Q63 | I do not feel much burden when trying a new tool or production method. | No |
-| Q64 | I usually give up easily on expressions that are difficult to make with tools I already know. | Yes |
+| Q64 | When an expression requires tools or methods I do not know yet, I often choose a simpler expression I can make reliably. | Yes |
 
 ### 17. Experience Designer
 
 | ID | Question | Reverse |
 |---|---|---|
 | Q65 | I usually think about the situation and flow of the people who will see, use, or experience my work. | No |
-| Q66 | I am interested in finding and improving discomfort or difficulties that people experience. | No |
-| Q67 | I think the direction of the work can change depending on the place, time, situation, and people involved. | No |
-| Q68 | If the outcome looks good, I usually feel that how people actually experience it can be considered later. | Yes |
+| Q66 | I often notice discomfort or difficulties that people may experience and wonder how they could be improved. | No |
+| Q67 | I tend to adjust the direction of the work depending on the place, time, situation, and people involved. | No |
+| Q68 | If the outcome already feels clear and attractive, I usually check people's actual experience later in the process. | Yes |
 
 ### 18. Presentation Editor
 
 | ID | Question | Reverse |
 |---|---|---|
-| Q69 | When showing my work, I usually organize order, spacing, size, and flow so it is easy to view. | No |
-| Q70 | I am interested in organizing complex work so that other people can understand it easily. | No |
-| Q71 | When showing my work, I carefully decide what to show first and what to show later. | No |
-| Q72 | If the work itself is good enough, I usually think the order or way of presenting it is not very important. | Yes |
+| Q69 | When showing my work, I usually adjust order, spacing, size, and flow so it is easy to view. | No |
+| Q70 | I am interested in arranging complex work so that other people can understand it more easily. | No |
+| Q71 | When showing my work, I usually decide carefully what should appear first and what should appear later. | No |
+| Q72 | When the work itself is clear, I tend to spend less time changing the order or presentation method. | Yes |
 
 ---
 
@@ -433,14 +434,14 @@ type Question = {
 
 | ID | Question | Connected Direction | Reverse |
 |---|---|---|---|
-| Q73 | I feel energized even when many kinds of requests or work conditions change quickly. | agency | No |
-| Q74 | I am well suited to work that develops and improves one topic or organization over a long time. | inhouse | No |
-| Q75 | Even when there is no clear answer, I usually define the problem myself and begin. | startup_independent | No |
-| Q76 | I am well suited to steadily building my own expression style or specialized field and connecting it to client-based or independent work. | studio_freelance | No |
-| Q77 | I find it interesting to investigate people's behavior or experience flow and identify problems to improve. | service_experience_planning | No |
-| Q78 | I am well suited to coordinating several people's opinions and conditions and developing them into one outcome. | inhouse, service_experience_planning | No |
-| Q79 | I am well suited to creating, comparing, and proposing several directions in a short time. | agency | No |
-| Q80 | Rather than waiting for a fixed request, I am well suited to finding opportunities myself and proposing my work first. | startup_independent, studio_freelance | No |
+| Q73 | I can keep working without much stress when requests or work conditions change several times. | agency | No |
+| Q74 | I feel comfortable staying with one topic, organization, or service and improving it over a long period. | inhouse | No |
+| Q75 | When there is no fixed answer, I tend to make a temporary problem definition and start from there. | startup_independent | No |
+| Q76 | I am drawn to building a personal expression style or specialized field over time and connecting it to independent or client-based work. | studio_freelance | No |
+| Q77 | I often become curious about how people move, choose, use, or experience something. | service_experience_planning | No |
+| Q78 | I can usually work with several people's opinions and conditions until they become one direction. | inhouse, service_experience_planning | No |
+| Q79 | I do not mind making several possible directions quickly before choosing one. | agency | No |
+| Q80 | I often notice opportunities for work before someone gives me a fixed request. | startup_independent, studio_freelance | No |
 
 ---
 
@@ -450,10 +451,10 @@ These questions are mainly used to support response consistency checks.
 
 | ID | Question | Check Area | Reverse |
 |---|---|---|---|
-| Q81 | My work usually goes better when I start making right away without looking things up or organizing first. | problem_discovery, research_discovery | Yes |
-| Q82 | If the outcome looks good, I do not think the reason or process needs to be explained in detail. | explanation_flow, process_builder | Yes |
-| Q83 | Even after receiving feedback, I usually keep my first way of thinking. | iteration_improvement, direction_translation | Yes |
-| Q84 | In collaborative work, once my role is finished, I usually do not get deeply involved in the overall result. | collaboration_responsibility | Yes |
+| Q81 | In many projects, I understand the task better after I begin making something than after looking up or organizing first. | problem_discovery, research_discovery | Yes |
+| Q82 | When the final outcome is easy to understand, I often keep the reason or process explanation short. | explanation_flow, process_builder | Yes |
+| Q83 | After feedback, I usually keep the original direction and use the feedback mainly for smaller adjustments if the main idea still feels convincing to me. | iteration_improvement, direction_translation | Yes |
+| Q84 | After my assigned part is finished in collaborative work, I usually focus on handoff and timing rather than continuing to follow the whole outcome closely. | collaboration_responsibility | Yes |
 
 ---
 
@@ -769,8 +770,8 @@ Research / Discovery needs consistency review.
 
 The student answered highly on both:
 
-- Q05: “Before starting a project, I usually look at materials, examples, or people's situations first.”
-- Q81: “My work usually goes better when I start making right away without looking things up or organizing first.”
+- Q05: “Before settling on a direction, I usually look at materials, examples, or people's situations.”
+- Q81: “In many projects, I understand the task better after I begin making something than after looking up or organizing first.”
 
 Consulting check:
 
