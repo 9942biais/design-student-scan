@@ -238,6 +238,9 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
             <div className="alert alert-info">
               {questionsData.meta.disclaimer}
             </div>
+            <div className="alert alert-privacy">
+              입력한 학생 정보와 응답은 외부 서버로 전송되지 않으며, 현재 사용하는 브라우저에만 저장됩니다. 공용 기기에서는 결과 확인 후 새로 시작하기를 눌러 저장된 데이터를 삭제해주세요.
+            </div>
             <p className="time-est">소요 시간: 약 {questionsData.meta.estimated_time_minutes.standard}분 · 총 {totalQuestions}문항</p>
           </div>
 
