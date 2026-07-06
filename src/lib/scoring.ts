@@ -17,6 +17,10 @@ export interface SurveyResponses {
   [questionId: string]: number; // 1 to 5
 }
 
+export interface SelfAssessmentScores {
+  [indicatorId: string]: number; // 1 to 10
+}
+
 export interface ScoringResult {
   indicators: { [indicatorId: string]: number };
   categories: { [categoryId: string]: number };

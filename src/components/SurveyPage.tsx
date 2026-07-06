@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import questionsData from '../data/questions.json';
-import type { Question, SurveyResponses } from '../lib/scoring';
+import type { Question, SelfAssessmentScores, SurveyResponses } from '../lib/scoring';
 import { QuestionCard } from './QuestionCard';
 import { ProgressBar } from './ProgressBar';
 
 interface SurveyPageProps {
-  onComplete: (studentInfo: StudentInfo, responses: SurveyResponses) => void;
+  onComplete: (studentInfo: StudentInfo, selfAssessment: SelfAssessmentScores, responses: SurveyResponses) => void;
   savedInfo: StudentInfo | null;
   savedResponses: SurveyResponses | null;
+  savedSelfAssessment: SelfAssessmentScores | null;
 }
 
 export interface StudentInfo {
@@ -27,7 +28,8 @@ interface PageSection {
 export const SurveyPage: React.FC<SurveyPageProps> = ({
   onComplete,
   savedInfo,
-  savedResponses
+  savedResponses,
+  savedSelfAssessment
 }) => {
   // 1. Student Information State
   const [studentInfo, setStudentInfo] = useState<StudentInfo>({
@@ -40,10 +42,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
 
   // 2. Answers State
   const [responses, setResponses] = useState<SurveyResponses>({});
+  const [selfAssessment, setSelfAssessment] = useState<SelfAssessmentScores>({});
 
-  // 3. Navigation State (0 is Intro/Info page, 1 to 6 are survey pages)
+  // 3. Navigation State (0 is Intro/Info page, 1 is self-assessment, 2 to 7 are survey pages)
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [missingQuestionIds, setMissingQuestionIds] = useState<string[]>([]);
+  const [missingSelfAssessmentIds, setMissingSelfAssessmentIds] = useState<string[]>([]);
 
   // Load saved data if present
   useEffect(() => {
@@ -53,13 +57,21 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
     if (savedResponses) {
       setResponses(savedResponses);
     }
-  }, [savedInfo, savedResponses]);
+    if (savedSelfAssessment) {
+      setSelfAssessment(savedSelfAssessment);
+    }
+  }, [savedInfo, savedResponses, savedSelfAssessment]);
 
   // Save to localStorage on change
-  const saveToLocalStorage = (updatedInfo: StudentInfo, updatedResponses: SurveyResponses) => {
+  const saveToLocalStorage = (
+    updatedInfo: StudentInfo,
+    updatedResponses: SurveyResponses,
+    updatedSelfAssessment: SelfAssessmentScores
+  ) => {
     try {
       localStorage.setItem('student_info', JSON.stringify(updatedInfo));
       localStorage.setItem('survey_responses', JSON.stringify(updatedResponses));
+      localStorage.setItem('self_assessment', JSON.stringify(updatedSelfAssessment));
     } catch (e) {
       console.error(e);
     }
@@ -69,7 +81,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
     const { name, value } = e.target;
     const nextInfo = { ...studentInfo, [name]: value };
     setStudentInfo(nextInfo);
-    saveToLocalStorage(nextInfo, responses);
+    saveToLocalStorage(nextInfo, responses, selfAssessment);
   };
 
   const handleResponseChange = (qId: string, val: number) => {
@@ -81,7 +93,20 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
         .map(q => q.id);
       setMissingQuestionIds(nextMissingIds);
     }
-    saveToLocalStorage(studentInfo, nextResponses);
+    saveToLocalStorage(studentInfo, nextResponses, selfAssessment);
+  };
+
+  const handleSelfAssessmentChange = (indicatorId: string, val: number) => {
+    const nextSelfAssessment = { ...selfAssessment, [indicatorId]: val };
+    setSelfAssessment(nextSelfAssessment);
+    if (missingSelfAssessmentIds.length > 0) {
+      setMissingSelfAssessmentIds(
+        questionsData.indicators
+          .filter((indicator: any) => nextSelfAssessment[indicator.id] === undefined)
+          .map((indicator: any) => indicator.id)
+      );
+    }
+    saveToLocalStorage(studentInfo, responses, nextSelfAssessment);
   };
 
   // Reset survey handler
@@ -95,13 +120,17 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
         date: new Date().toLocaleDateString('ko-KR')
       };
       const resetResp = {};
+      const resetSelfAssessment = {};
       setStudentInfo(resetInfo);
       setResponses(resetResp);
+      setSelfAssessment(resetSelfAssessment);
       setCurrentPage(0);
       setMissingQuestionIds([]);
+      setMissingSelfAssessmentIds([]);
       try {
         localStorage.removeItem('student_info');
         localStorage.removeItem('survey_responses');
+        localStorage.removeItem('self_assessment');
       } catch (e) {
         console.error(e);
       }
@@ -116,25 +145,31 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   // Page 5: Design Orientation (orientation)
   // Page 6: Career / Role Fit (career_fit) & Response Consistency (consistency)
   const allQuestions = questionsData.questions as Question[];
+  const indicators = questionsData.indicators as Array<{
+    id: string;
+    name: string;
+    category: string;
+    description: string;
+  }>;
   const pageSections: PageSection[] = [
     {
       title: '1. 사고와 방향 설정 (Thinking)',
-      description: '작업을 시작하고, 문제를 파악하며, 디자인 방향을 설정하는 평소 방식을 진단합니다.',
+      description: '작업을 시작하고 문제를 파악하며 디자인 방향을 설정하는 평소 방식을 진단합니다.',
       questions: allQuestions.filter(q => q.section === 'competency' && q.category === 'thinking')
     },
     {
       title: '2. 제작과 구현 (Making)',
-      description: '아이디어를 구체적인 결과물로 만들고, 조형미와 디테일을 다듬는 방식을 진단합니다.',
+      description: '아이디어를 구체적인 결과물로 만들고 조형미와 디테일을 다듬는 방식을 진단합니다.',
       questions: allQuestions.filter(q => q.section === 'competency' && q.category === 'making')
     },
     {
       title: '3. 정리와 전달 (Communicating)',
-      description: '디자인 결과물을 목적에 맞게 재구성하고, 논리적 흐름에 맞춰 말과 글로 전달하는 방식을 진단합니다.',
+      description: '디자인 결과물을 목적에 맞게 재구성하고 논리적 흐름에 맞춰 말과 글로 전달하는 방식을 진단합니다.',
       questions: allQuestions.filter(q => q.section === 'competency' && q.category === 'communicating')
     },
     {
       title: '4. 작업 태도와 습관 (Working)',
-      description: '지시 없이 능동적으로 작업을 시작하고, 의견을 반영해 개선하며, 협업하는 방식을 진단합니다.',
+      description: '지시 없이 능동적으로 작업을 시작하고 의견을 반영해 개선하며 협업하는 방식을 진단합니다.',
       questions: allQuestions.filter(q => q.section === 'competency' && q.category === 'working')
     },
     {
@@ -151,8 +186,9 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
 
   const totalQuestions = allQuestions.length;
   const answeredCount = allQuestions.filter(q => responses[q.id] !== undefined).length;
+  const selfAssessmentMissing = indicators.filter(indicator => selfAssessment[indicator.id] === undefined);
 
-  const currentSection = currentPage > 0 ? pageSections[currentPage - 1] : null;
+  const currentSection = currentPage > 1 ? pageSections[currentPage - 2] : null;
   const missingQuestions = currentSection
     ? currentSection.questions.filter(q => responses[q.id] === undefined)
     : [];
@@ -174,7 +210,30 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
       return;
     }
     setMissingQuestionIds([]);
+    setMissingSelfAssessmentIds([]);
+    const nextSelfAssessment = indicators.reduce<SelfAssessmentScores>((acc, indicator) => {
+      acc[indicator.id] = selfAssessment[indicator.id] ?? 5;
+      return acc;
+    }, {});
+    setSelfAssessment(nextSelfAssessment);
+    saveToLocalStorage(studentInfo, responses, nextSelfAssessment);
     setCurrentPage(1);
+  };
+
+  const handleSelfAssessmentNext = () => {
+    if (selfAssessmentMissing.length > 0) {
+      setMissingSelfAssessmentIds(selfAssessmentMissing.map(indicator => indicator.id));
+      window.requestAnimationFrame(() => {
+        document.querySelector('.missing-response-alert')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      });
+      return;
+    }
+    setMissingSelfAssessmentIds([]);
+    setCurrentPage(2);
+    window.scrollTo(0, 0);
   };
 
   const handleNext = () => {
@@ -189,7 +248,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
       return;
     }
     setMissingQuestionIds([]);
-    if (currentPage < pageSections.length) {
+    if (currentPage < pageSections.length + 1) {
       setCurrentPage(currentPage + 1);
       window.scrollTo(0, 0);
     } else {
@@ -201,7 +260,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
         );
         if (nextMissingQuestion && nextPageIndex >= 0) {
           const nextSection = pageSections[nextPageIndex];
-          setCurrentPage(nextPageIndex + 1);
+          setCurrentPage(nextPageIndex + 2);
           setMissingQuestionIds(
             nextSection.questions
               .filter(q => responses[q.id] === undefined)
@@ -211,13 +270,14 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
         }
         return;
       }
-      onComplete(studentInfo, responses);
+      onComplete(studentInfo, selfAssessment, responses);
     }
   };
 
   const handlePrev = () => {
     if (currentPage > 0) {
       setMissingQuestionIds([]);
+      setMissingSelfAssessmentIds([]);
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
     }
@@ -327,6 +387,82 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
             </div>
           </form>
         </div>
+      ) : currentPage === 1 ? (
+        <div className="self-assessment-flow fade-in">
+          <div className="section-intro">
+            <h2 className="section-title">내가 생각하는 나의 능력치는?</h2>
+          </div>
+
+          {missingSelfAssessmentIds.length > 0 && (
+            <div className="missing-response-alert" role="alert">
+              <strong>아직 표시하지 않은 역량이 있어요.</strong>
+              <span>{missingSelfAssessmentIds.length}개 역량의 슬라이더를 조정해주세요.</span>
+            </div>
+          )}
+
+          <div className="self-assessment-grid">
+            {questionsData.competency_categories.map((cat: any) => (
+              <section key={cat.id} className="self-assessment-group">
+                <h3 className="self-assessment-group-title">{cat.ko_name}</h3>
+                {indicators
+                  .filter(indicator => indicator.category === cat.id)
+                  .map(indicator => {
+                    const value = selfAssessment[indicator.id] ?? 5;
+                    const isMissing = missingSelfAssessmentIds.includes(indicator.id);
+                    return (
+                      <div
+                        key={indicator.id}
+                        className={`self-slider-card ${isMissing ? 'missing' : ''}`}
+                      >
+                        <div className="self-slider-header">
+                          <div>
+                            <h4>{indicator.name}</h4>
+                            <p>{indicator.description}</p>
+                          </div>
+                          <output className="self-slider-value" htmlFor={`self-${indicator.id}`}>
+                            {value}점
+                          </output>
+                        </div>
+                        <input
+                          id={`self-${indicator.id}`}
+                          className="self-slider"
+                          type="range"
+                          min="1"
+                          max="10"
+                          step="1"
+                          value={value}
+                          onChange={(event) => handleSelfAssessmentChange(indicator.id, Number(event.target.value))}
+                          style={{ '--slider-progress': `${((value - 1) / 9) * 100}%` } as React.CSSProperties}
+                        />
+                        <div className="self-slider-scale" aria-hidden="true">
+                          <span>1</span>
+                          <span>10</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </section>
+            ))}
+          </div>
+
+          <div className="navigation-footer">
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="btn btn-secondary"
+            >
+              이전
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSelfAssessmentNext}
+              className={`btn btn-primary ${selfAssessmentMissing.length > 0 ? 'disabled' : ''}`}
+            >
+              84문항 진단 시작
+            </button>
+          </div>
+        </div>
       ) : (
         // --- 2. SURVEY RUNNING ---
         <div className="survey-flow fade-in">
@@ -375,7 +511,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
               onClick={handleNext} 
               className={`btn btn-primary ${!isSectionComplete() ? 'disabled' : ''}`}
             >
-              {currentPage === pageSections.length ? '진단 완료 및 결과 보기' : '다음 단계'}
+              {currentPage === pageSections.length + 1 ? '진단 완료 및 결과 보기' : '다음 단계'}
             </button>
           </div>
         </div>

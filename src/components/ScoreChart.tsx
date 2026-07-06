@@ -1,13 +1,21 @@
 import React from 'react';
-import type { ScoringResult } from '../lib/scoring';
+import type { ScoringResult, SelfAssessmentScores } from '../lib/scoring';
 import questionsData from '../data/questions.json';
 
 interface ScoreChartProps {
   scores: ScoringResult;
+  selfAssessment: SelfAssessmentScores;
 }
 
-export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
+export const ScoreChart: React.FC<ScoreChartProps> = ({ scores, selfAssessment }) => {
   const { categories, indicators } = scores;
+  const selfAssessmentAsPercent = (indicatorId: string) =>
+    ((selfAssessment[indicatorId] || 0) / 10) * 100;
+  const getSelfCategoryScore = (indicatorIds: string[]) => {
+    if (indicatorIds.length === 0) return 0;
+    const sum = indicatorIds.reduce((total, indicatorId) => total + selfAssessmentAsPercent(indicatorId), 0);
+    return sum / indicatorIds.length;
+  };
 
   // Compact radar: category scores are shown in the detailed indicator cards.
   const W = 320;
@@ -42,10 +50,25 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
     getXY(categories.communicating || 0, 2),
     getXY(categories.working || 0, 3),
   ];
+  const selfCategoryScores = {
+    thinking: getSelfCategoryScore(['problem_discovery', 'research_discovery', 'direction_translation']),
+    making: getSelfCategoryScore(['aesthetic_sense', 'structural_organization', 'execution_quality']),
+    communicating: getSelfCategoryScore(['portfolio_organization', 'explanation_flow', 'verbal_written_clarity']),
+    working: getSelfCategoryScore(['self_direction', 'iteration_improvement', 'collaboration_responsibility']),
+  };
+  const selfPts = [
+    getXY(selfCategoryScores.thinking, 0),
+    getXY(selfCategoryScores.making, 1),
+    getXY(selfCategoryScores.communicating, 2),
+    getXY(selfCategoryScores.working, 3),
+  ];
 
   const dataPath =
     `M${pts[0].x} ${pts[0].y} L${pts[1].x} ${pts[1].y} ` +
     `L${pts[2].x} ${pts[2].y} L${pts[3].x} ${pts[3].y}Z`;
+  const selfDataPath =
+    `M${selfPts[0].x} ${selfPts[0].y} L${selfPts[1].x} ${selfPts[1].y} ` +
+    `L${selfPts[2].x} ${selfPts[2].y} L${selfPts[3].x} ${selfPts[3].y}Z`;
 
   return (
     <div className="charts-container">
@@ -53,6 +76,10 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
       {/* 1. Radar Chart — 4 main categories */}
       <div className="chart-box radar-box">
         <h3 className="chart-title">4대 핵심 역량 카테고리</h3>
+        <div className="score-legend" aria-label="점수 범례">
+          <span><i className="legend-swatch actual" />진단 결과</span>
+          <span><i className="legend-swatch self" />내가 생각한 능력치</span>
+        </div>
         <div className="radar-svg-wrapper">
           <svg
             viewBox={`0 0 ${W} ${H}`}
@@ -93,11 +120,16 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
 
             {/* Data polygon */}
             <path className="radar-data-path" d={dataPath} fill="url(#radarGrad)" stroke="var(--primary-color)" strokeWidth="2" />
+            <path className="radar-self-path" d={selfDataPath} fill="rgba(255, 159, 10, 0.10)" stroke="#ff9f0a" strokeWidth="2" strokeDasharray="6 5" />
 
             {/* Data point dots */}
             {pts.map((pt, i) => (
               <circle key={i} cx={pt.x} cy={pt.y} r="4.5"
                 fill="#fff" stroke="var(--primary-color)" strokeWidth="2.5" />
+            ))}
+            {selfPts.map((pt, i) => (
+              <circle key={`self-${i}`} cx={pt.x} cy={pt.y} r="3.8"
+                fill="#fff8eb" stroke="#ff9f0a" strokeWidth="2" />
             ))}
 
             {axisLabels.map(axis => (
@@ -118,6 +150,10 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
       {/* 2. Detailed 12 indicators by category */}
       <div className="chart-box indicators-box">
         <h3 className="chart-title">12대 세부 역량 지표</h3>
+        <div className="score-legend indicator-legend" aria-label="점수 범례">
+          <span><i className="legend-swatch actual" />진단 결과</span>
+          <span><i className="legend-swatch self" />내가 생각한 능력치</span>
+        </div>
         <div className="indicators-grid-layout">
           {questionsData.competency_categories.map((cat: any) => {
             const catScore = Math.round(categories[cat.id] || 0);
@@ -131,16 +167,22 @@ export const ScoreChart: React.FC<ScoreChartProps> = ({ scores }) => {
                   {cat.indicators.map((indId: string) => {
                     const indData = questionsData.indicators.find((i: any) => i.id === indId);
                     const score = Math.round(indicators[indId] || 0);
+                    const selfScore = Math.round(selfAssessmentAsPercent(indId));
                     return (
                       <div key={indId} className="indicator-bar-item">
                         <div className="indicator-bar-label">
                           <span className="ind-name">{indData?.name}</span>
-                          <span className="ind-val">{score}점</span>
+                          <span className="ind-val">{score}점 / 자기 {selfAssessment[indId] || 0}</span>
                         </div>
-                        <div className="ind-progress-bg">
+                        <div className="ind-progress-bg comparison">
                           <div
                             className={`ind-progress-fill cat-${cat.id}`}
                             style={{ width: `${score}%` }}
+                          />
+                          <span
+                            className="self-score-marker"
+                            style={{ left: `${selfScore}%` }}
+                            aria-label={`내가 생각한 ${indData?.name} ${selfAssessment[indId] || 0}점`}
                           />
                         </div>
                       </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { type SurveyResponses, calculateScores } from '../lib/scoring';
+import { type SelfAssessmentScores, type SurveyResponses, calculateScores } from '../lib/scoring';
 import type { StudentInfo } from './SurveyPage';
 import { checkConsistency } from '../lib/consistency';
 import { generateReportFeedback, CONSISTENCY_GUIDANCE } from '../lib/reportText';
@@ -13,12 +13,14 @@ const CONSULTANT_SESSION_KEY = 'designer_inbody_consultant_mode';
 interface ResultPageProps {
   studentInfo: StudentInfo;
   responses: SurveyResponses;
+  selfAssessment: SelfAssessmentScores;
   onRestart: () => void;
 }
 
 export const ResultPage: React.FC<ResultPageProps> = ({
   studentInfo,
   responses,
+  selfAssessment,
   onRestart
 }) => {
   const [isConsultantMode, setIsConsultantMode] = useState(() => {
@@ -188,7 +190,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
 
         {/* 2. Charts Section (Radar & Indicators) */}
         <section className="report-section charts-section">
-          <ScoreChart scores={scores} />
+          <ScoreChart scores={scores} selfAssessment={selfAssessment} />
         </section>
 
         {/* 3. Strengths & Areas to Check (Two-column) */}

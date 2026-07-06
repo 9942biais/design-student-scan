@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 import { SurveyPage, type StudentInfo } from './components/SurveyPage';
 import { ResultPage } from './components/ResultPage';
-import type { SurveyResponses } from './lib/scoring';
+import type { SelfAssessmentScores, SurveyResponses } from './lib/scoring';
 
 function App() {
   const [studentInfo, setStudentInfo] = useState<StudentInfo | null>(null);
   const [responses, setResponses] = useState<SurveyResponses | null>(null);
+  const [selfAssessment, setSelfAssessment] = useState<SelfAssessmentScores | null>(null);
   const [isCompleted, setIsCompleted] = useState<boolean>(false);
 
   // Load from localStorage on startup
   useEffect(() => {
     let savedInfoStr: string | null = null;
     let savedRespStr: string | null = null;
+    let savedSelfAssessmentStr: string | null = null;
     let savedStatus: string | null = null;
 
     try {
       savedInfoStr = localStorage.getItem('student_info');
       savedRespStr = localStorage.getItem('survey_responses');
+      savedSelfAssessmentStr = localStorage.getItem('self_assessment');
       savedStatus = localStorage.getItem('survey_completed');
     } catch (e) {
       console.error(e);
@@ -37,13 +40,21 @@ function App() {
         console.error(e);
       }
     }
-    if (savedStatus === 'true' && savedInfoStr && savedRespStr) {
+    if (savedSelfAssessmentStr) {
+      try {
+        setSelfAssessment(JSON.parse(savedSelfAssessmentStr));
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (savedStatus === 'true' && savedInfoStr && savedRespStr && savedSelfAssessmentStr) {
       setIsCompleted(true);
     }
   }, []);
 
-  const handleComplete = (info: StudentInfo, resp: SurveyResponses) => {
+  const handleComplete = (info: StudentInfo, selfScores: SelfAssessmentScores, resp: SurveyResponses) => {
     setStudentInfo(info);
+    setSelfAssessment(selfScores);
     setResponses(resp);
     setIsCompleted(true);
     try {
@@ -64,7 +75,7 @@ function App() {
     }
   };
 
-  const canShowResult = isCompleted && studentInfo && responses;
+  const canShowResult = isCompleted && studentInfo && responses && selfAssessment;
 
   return (
     <main className="app-main">
@@ -72,6 +83,7 @@ function App() {
           <ResultPage
             studentInfo={studentInfo}
             responses={responses}
+            selfAssessment={selfAssessment}
             onRestart={handleRestart}
           />
       ) : (
@@ -79,6 +91,7 @@ function App() {
           onComplete={handleComplete}
           savedInfo={studentInfo}
           savedResponses={responses}
+          savedSelfAssessment={selfAssessment}
         />
       )}
     </main>
