@@ -149,7 +149,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
       </div>
 
       {/* --- REPORT ONE-PAGE CONTAINER --- */}
-      <div className="report-paper">
+      <div className={`report-paper ${isConsultantMode ? 'consultant-report' : 'respondent-report'}`}>
         {/* Report Header */}
         <header className="report-header">
           <div className="report-title-section">
