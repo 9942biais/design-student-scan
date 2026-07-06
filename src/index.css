@@ -619,21 +619,6 @@ a:hover {
   display: flex;
 }
 
-.consultant-secret-trigger {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  z-index: 40;
-  width: 56px;
-  height: 56px;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: default;
-  opacity: 0;
-  -webkit-tap-highlight-color: transparent;
-}
-
 .pin-modal-backdrop {
   position: fixed;
   inset: 0;

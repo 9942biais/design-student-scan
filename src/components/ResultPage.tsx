@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { type SurveyResponses, calculateScores } from '../lib/scoring';
 import type { StudentInfo } from './SurveyPage';
 import { checkConsistency } from '../lib/consistency';
@@ -28,7 +28,8 @@ export const ResultPage: React.FC<ResultPageProps> = ({
       return false;
     }
   });
-  const [cornerTapCount, setCornerTapCount] = useState(0);
+  const cornerTapCountRef = useRef(0);
+  const cornerTapTimerRef = useRef<number | null>(null);
   const [showPinModal, setShowPinModal] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
@@ -69,21 +70,52 @@ export const ResultPage: React.FC<ResultPageProps> = ({
     })
     .sort((a, b) => b.score - a.score);
 
-  const handleSecretTrigger = () => {
-    const nextCount = cornerTapCount + 1;
-    setCornerTapCount(nextCount);
+  useEffect(() => {
+    if (isConsultantMode || showPinModal) return;
 
-    window.setTimeout(() => {
-      setCornerTapCount(0);
-    }, 3000);
+    const resetCornerTapCount = () => {
+      cornerTapCountRef.current = 0;
+      if (cornerTapTimerRef.current !== null) {
+        window.clearTimeout(cornerTapTimerRef.current);
+        cornerTapTimerRef.current = null;
+      }
+    };
 
-    if (nextCount >= 2) {
-      setCornerTapCount(0);
-      setPinInput('');
-      setPinError('');
-      setShowPinModal(true);
-    }
-  };
+    const handleCornerPointer = (event: PointerEvent) => {
+      const hotZoneSize = 96;
+      const isInBottomRightCorner =
+        event.clientX >= window.innerWidth - hotZoneSize &&
+        event.clientY >= window.innerHeight - hotZoneSize;
+
+      if (!isInBottomRightCorner) {
+        resetCornerTapCount();
+        return;
+      }
+
+      cornerTapCountRef.current += 1;
+
+      if (cornerTapTimerRef.current !== null) {
+        window.clearTimeout(cornerTapTimerRef.current);
+      }
+
+      cornerTapTimerRef.current = window.setTimeout(resetCornerTapCount, 3500);
+
+      if (cornerTapCountRef.current >= 4) {
+        resetCornerTapCount();
+        setPinInput('');
+        setPinError('');
+        setShowPinModal(true);
+      }
+    };
+
+    window.addEventListener('pointerup', handleCornerPointer);
+
+    return () => {
+      window.removeEventListener('pointerup', handleCornerPointer);
+      resetCornerTapCount();
+    };
+  }, [isConsultantMode, showPinModal]);
+
 
   const handlePinSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -303,14 +335,6 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           <p className="copyright-text">© {new Date().getFullYear()} Designer InBody Standard Scan. All rights reserved.</p>
         </footer>
       </div>
-
-      <button
-        type="button"
-        className="consultant-secret-trigger print-hide"
-        aria-label="컨설턴트 모드 열기"
-        onDoubleClick={handleSecretTrigger}
-        onTouchEnd={handleSecretTrigger}
-      />
 
       {showPinModal && (
         <div className="pin-modal-backdrop print-hide" role="presentation">
