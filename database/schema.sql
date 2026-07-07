@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS submissions (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  public_id CHAR(32) NOT NULL,
+  email VARCHAR(190) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  school VARCHAR(150) NOT NULL,
+  department VARCHAR(150) NOT NULL,
+  grade VARCHAR(50) NOT NULL,
+  written_date VARCHAR(50) NOT NULL,
+  marketing_consent TINYINT(1) NOT NULL DEFAULT 1,
+  responses_json JSON NOT NULL,
+  self_assessment_json JSON NOT NULL,
+  user_agent VARCHAR(500) NULL,
+  ip_address VARCHAR(45) NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_submissions_public_id (public_id),
+  KEY idx_submissions_created_at (created_at),
+  KEY idx_submissions_email (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

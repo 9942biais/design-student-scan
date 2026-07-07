@@ -1,32 +1,20 @@
-# React + TypeScript + Vite
+# DIF Scan
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+디자인 학부생 자가진단 서비스입니다. `dif-scan.biais.co.kr` 서브도메인 루트에 React 정적 파일을 배포하고, 같은 호스트의 PHP 8.x API가 MariaDB에 응답자 정보와 진단 응답을 저장합니다.
 
-Currently, two official plugins are available:
+## 운영 구조
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `/`: 응답자용 자가진단
+- `/admin`: 관리자 로그인, 응답 목록, 전체 결과지 조회
+- `/api`: PHP API
+- `database/schema.sql`: MariaDB 테이블 생성 SQL
 
-## React Compiler
+## Cafe24 배포 순서
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Cafe24에서 `dif-scan.biais.co.kr` 서브도메인을 생성하고 SSL을 설정합니다.
+2. MariaDB에 `database/schema.sql`을 실행합니다.
+3. `api/config.example.php`를 `api/config.php`로 복사한 뒤 DB 정보와 관리자 비밀번호 해시를 설정합니다.
+4. `npm run build`를 실행합니다.
+5. `dist` 안의 정적 파일, `.htaccess`, `api` 폴더를 서브도메인 웹 루트에 업로드합니다.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+`api/config.php`는 비밀 정보가 들어가므로 Git에 커밋하지 않습니다.

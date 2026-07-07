@@ -5,18 +5,20 @@ import { QuestionCard } from './QuestionCard';
 import { ProgressBar } from './ProgressBar';
 
 interface SurveyPageProps {
-  onComplete: (studentInfo: StudentInfo, selfAssessment: SelfAssessmentScores, responses: SurveyResponses) => void;
+  onComplete: (studentInfo: StudentInfo, selfAssessment: SelfAssessmentScores, responses: SurveyResponses) => Promise<void> | void;
   savedInfo: StudentInfo | null;
   savedResponses: SurveyResponses | null;
   savedSelfAssessment: SelfAssessmentScores | null;
 }
 
 export interface StudentInfo {
+  email: string;
   name: string;
   school: string;
   department: string;
   grade: string; // e.g., "3학년", "4학년"
   date: string;
+  marketingConsent: boolean;
 }
 
 interface PageSection {
@@ -34,10 +36,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   // 1. Student Information State
   const [studentInfo, setStudentInfo] = useState<StudentInfo>({
     name: '',
+    email: '',
     school: '',
     department: '',
     grade: '3학년',
-    date: new Date().toLocaleDateString('ko-KR')
+    date: new Date().toLocaleDateString('ko-KR'),
+    marketingConsent: false
   });
 
   // 2. Answers State
@@ -48,6 +52,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [missingQuestionIds, setMissingQuestionIds] = useState<string[]>([]);
   const [missingSelfAssessmentIds, setMissingSelfAssessmentIds] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Load saved data if present
   useEffect(() => {
@@ -78,8 +83,11 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
   };
 
   const handleInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    const nextInfo = { ...studentInfo, [name]: value };
+    const { name, value, type } = e.target;
+    const nextValue = type === 'checkbox' && e.target instanceof HTMLInputElement
+      ? e.target.checked
+      : value;
+    const nextInfo = { ...studentInfo, [name]: nextValue };
     setStudentInfo(nextInfo);
     saveToLocalStorage(nextInfo, responses, selfAssessment);
   };
@@ -114,10 +122,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
     if (window.confirm('기존 입력한 모든 답변이 초기화됩니다. 계속하시겠습니까?')) {
       const resetInfo = {
         name: '',
+        email: '',
         school: '',
         department: '',
         grade: '3학년',
-        date: new Date().toLocaleDateString('ko-KR')
+        date: new Date().toLocaleDateString('ko-KR'),
+        marketingConsent: false
       };
       const resetResp = {};
       const resetSelfAssessment = {};
@@ -205,8 +215,21 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
 
   const handleStart = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!studentInfo.name.trim() || !studentInfo.school.trim() || !studentInfo.department.trim()) {
+    if (
+      !studentInfo.name.trim() ||
+      !studentInfo.email.trim() ||
+      !studentInfo.school.trim() ||
+      !studentInfo.department.trim()
+    ) {
       alert('모든 필수 학생 정보를 입력해주세요.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(studentInfo.email.trim())) {
+      alert('이메일 형식을 확인해주세요.');
+      return;
+    }
+    if (!studentInfo.marketingConsent) {
+      alert('컨설팅 프로그램 안내를 위한 이메일 수집 및 이용에 동의해야 진단을 시작할 수 있습니다.');
       return;
     }
     setMissingQuestionIds([]);
@@ -236,7 +259,8 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
     window.scrollTo(0, 0);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    if (isSubmitting) return;
     if (missingQuestions.length > 0) {
       setMissingQuestionIds(missingQuestions.map(q => q.id));
       window.requestAnimationFrame(() => {
@@ -270,7 +294,14 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
         }
         return;
       }
-      onComplete(studentInfo, selfAssessment, responses);
+      setIsSubmitting(true);
+      try {
+        await onComplete(studentInfo, selfAssessment, responses);
+      } catch (error) {
+        alert(error instanceof Error ? error.message : '진단 결과 저장에 실패했습니다.');
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -299,7 +330,7 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
               {questionsData.meta.disclaimer}
             </div>
             <div className="alert alert-privacy">
-              입력한 학생 정보와 응답은 외부 서버로 전송되지 않으며, 현재 사용하는 브라우저에만 저장됩니다. 공용 기기에서는 결과 확인 후 새로 시작하기를 눌러 저장된 데이터를 삭제해주세요.
+              입력한 학생 정보와 응답은 결과 확인 및 향후 컨설팅 프로그램 안내를 위해 BIAIS 서버에 저장됩니다. 응답자 화면에는 요약 결과만 표시되며, 전체 결과지는 관리자만 확인할 수 있습니다.
             </div>
             <p className="time-est">소요 시간: 약 {questionsData.meta.estimated_time_minutes.standard}분 · 총 {totalQuestions}문항</p>
           </div>
@@ -307,6 +338,19 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
           <form onSubmit={handleStart} className="info-form">
             <h3 className="section-subtitle">학생 기본 정보 입력</h3>
             
+            <div className="form-group">
+              <label htmlFor="email">이메일 *</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={studentInfo.email}
+                onChange={handleInfoChange}
+                placeholder="name@example.com"
+                required
+              />
+            </div>
+
             <div className="form-group">
               <label htmlFor="name">이름 *</label>
               <input
@@ -319,6 +363,17 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
                 required
               />
             </div>
+
+            <label className="consent-check">
+              <input
+                type="checkbox"
+                name="marketingConsent"
+                checked={studentInfo.marketingConsent}
+                onChange={handleInfoChange}
+                required
+              />
+              <span>향후 컨설팅 프로그램 안내를 받기 위해 이메일 수집 및 이용에 동의합니다.</span>
+            </label>
 
             <div className="form-row">
               <div className="form-group">
@@ -509,9 +564,12 @@ export const SurveyPage: React.FC<SurveyPageProps> = ({
             <button 
               type="button" 
               onClick={handleNext} 
-              className={`btn btn-primary ${!isSectionComplete() ? 'disabled' : ''}`}
+              className={`btn btn-primary ${!isSectionComplete() || isSubmitting ? 'disabled' : ''}`}
+              disabled={isSubmitting}
             >
-              {currentPage === pageSections.length + 1 ? '진단 완료 및 결과 보기' : '다음 단계'}
+              {currentPage === pageSections.length + 1
+                ? (isSubmitting ? '저장 중...' : '진단 완료 및 결과 보기')
+                : '다음 단계'}
             </button>
           </div>
         </div>

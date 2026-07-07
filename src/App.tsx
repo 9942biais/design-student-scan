@@ -1,7 +1,21 @@
 import { useState, useEffect } from 'react';
 import { SurveyPage, type StudentInfo } from './components/SurveyPage';
 import { ResultPage } from './components/ResultPage';
+import { AdminPage } from './components/AdminPage';
 import type { SelfAssessmentScores, SurveyResponses } from './lib/scoring';
+import { createSubmission } from './lib/api';
+
+const getToday = () => new Date().toLocaleDateString('ko-KR');
+
+const normalizeStudentInfo = (value: Partial<StudentInfo>): StudentInfo => ({
+  email: value.email ?? '',
+  name: value.name ?? '',
+  school: value.school ?? '',
+  department: value.department ?? '',
+  grade: value.grade ?? '3학년',
+  date: value.date ?? getToday(),
+  marketingConsent: value.marketingConsent ?? false
+});
 
 function App() {
   const [studentInfo, setStudentInfo] = useState<StudentInfo | null>(null);
@@ -28,7 +42,7 @@ function App() {
 
     if (savedInfoStr) {
       try {
-        setStudentInfo(JSON.parse(savedInfoStr));
+        setStudentInfo(normalizeStudentInfo(JSON.parse(savedInfoStr)));
       } catch (e) {
         console.error(e);
       }
@@ -52,13 +66,21 @@ function App() {
     }
   }, []);
 
-  const handleComplete = (info: StudentInfo, selfScores: SelfAssessmentScores, resp: SurveyResponses) => {
+  const handleComplete = async (info: StudentInfo, selfScores: SelfAssessmentScores, resp: SurveyResponses) => {
+    await createSubmission({
+      studentInfo: info,
+      selfAssessment: selfScores,
+      responses: resp
+    });
     setStudentInfo(info);
     setSelfAssessment(selfScores);
     setResponses(resp);
     setIsCompleted(true);
     try {
-      localStorage.setItem('survey_completed', 'true');
+      localStorage.removeItem('student_info');
+      localStorage.removeItem('survey_responses');
+      localStorage.removeItem('self_assessment');
+      localStorage.removeItem('survey_completed');
     } catch (e) {
       console.error(e);
     }
@@ -77,6 +99,14 @@ function App() {
 
   const canShowResult = isCompleted && studentInfo && responses && selfAssessment;
 
+  if (window.location.pathname.replace(/\/$/, '') === '/admin') {
+    return (
+      <main className="app-main">
+        <AdminPage />
+      </main>
+    );
+  }
+
   return (
     <main className="app-main">
       {canShowResult ? (
@@ -85,6 +115,7 @@ function App() {
             responses={responses}
             selfAssessment={selfAssessment}
             onRestart={handleRestart}
+            showFullReport={false}
           />
       ) : (
         <SurveyPage

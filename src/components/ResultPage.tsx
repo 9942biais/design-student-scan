@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { type SelfAssessmentScores, type SurveyResponses, calculateScores } from '../lib/scoring';
 import type { StudentInfo } from './SurveyPage';
 import { checkConsistency } from '../lib/consistency';
@@ -7,35 +7,21 @@ import { ScoreChart } from './ScoreChart';
 import { PdfExportButton } from './PdfExportButton';
 import questionsData from '../data/questions.json';
 
-const CONSULTANT_PIN = import.meta.env.VITE_CONSULTANT_PIN || '6969';
-const CONSULTANT_SESSION_KEY = 'designer_inbody_consultant_mode';
-
 interface ResultPageProps {
   studentInfo: StudentInfo;
   responses: SurveyResponses;
   selfAssessment: SelfAssessmentScores;
   onRestart: () => void;
+  showFullReport?: boolean;
 }
 
 export const ResultPage: React.FC<ResultPageProps> = ({
   studentInfo,
   responses,
   selfAssessment,
-  onRestart
+  onRestart,
+  showFullReport = false
 }) => {
-  const [isConsultantMode, setIsConsultantMode] = useState(() => {
-    try {
-      return sessionStorage.getItem(CONSULTANT_SESSION_KEY) === 'true';
-    } catch {
-      return false;
-    }
-  });
-  const cornerTapCountRef = useRef(0);
-  const cornerTapTimerRef = useRef<number | null>(null);
-  const [showPinModal, setShowPinModal] = useState(false);
-  const [pinInput, setPinInput] = useState('');
-  const [pinError, setPinError] = useState('');
-
   // 1. Calculate all scores
   const scores = calculateScores(responses);
 
@@ -72,71 +58,6 @@ export const ResultPage: React.FC<ResultPageProps> = ({
     })
     .sort((a, b) => b.score - a.score);
 
-  useEffect(() => {
-    if (isConsultantMode || showPinModal) return;
-
-    const resetCornerTapCount = () => {
-      cornerTapCountRef.current = 0;
-      if (cornerTapTimerRef.current !== null) {
-        window.clearTimeout(cornerTapTimerRef.current);
-        cornerTapTimerRef.current = null;
-      }
-    };
-
-    const handleCornerPointer = (event: PointerEvent) => {
-      const hotZoneSize = 96;
-      const isInBottomRightCorner =
-        event.clientX >= window.innerWidth - hotZoneSize &&
-        event.clientY >= window.innerHeight - hotZoneSize;
-
-      if (!isInBottomRightCorner) {
-        resetCornerTapCount();
-        return;
-      }
-
-      cornerTapCountRef.current += 1;
-
-      if (cornerTapTimerRef.current !== null) {
-        window.clearTimeout(cornerTapTimerRef.current);
-      }
-
-      cornerTapTimerRef.current = window.setTimeout(resetCornerTapCount, 3500);
-
-      if (cornerTapCountRef.current >= 4) {
-        resetCornerTapCount();
-        setPinInput('');
-        setPinError('');
-        setShowPinModal(true);
-      }
-    };
-
-    window.addEventListener('pointerup', handleCornerPointer);
-
-    return () => {
-      window.removeEventListener('pointerup', handleCornerPointer);
-      resetCornerTapCount();
-    };
-  }, [isConsultantMode, showPinModal]);
-
-
-  const handlePinSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (pinInput.trim() !== CONSULTANT_PIN) {
-      setPinError('PIN 번호가 일치하지 않습니다.');
-      return;
-    }
-
-    setIsConsultantMode(true);
-    setShowPinModal(false);
-    setPinInput('');
-    setPinError('');
-    try {
-      sessionStorage.setItem(CONSULTANT_SESSION_KEY, 'true');
-    } catch {
-      // sessionStorage may be unavailable in some browsing modes.
-    }
-  };
-
   return (
     <div className="result-container fade-in">
       {/* Action Header (Hidden in Print) */}
@@ -144,14 +65,14 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         <button type="button" onClick={onRestart} className="btn btn-secondary">
           처음으로
         </button>
-        {isConsultantMode && (
+        {showFullReport && (
           <span className="consultant-mode-badge">컨설턴트 모드</span>
         )}
         <PdfExportButton studentName={studentInfo.name} />
       </div>
 
       {/* --- REPORT ONE-PAGE CONTAINER --- */}
-      <div className={`report-paper ${isConsultantMode ? 'consultant-report' : 'respondent-report'}`}>
+      <div className={`report-paper ${showFullReport ? 'consultant-report' : 'respondent-report'}`}>
         {/* Report Header */}
         <header className="report-header">
           <div className="report-title-section">
@@ -159,6 +80,10 @@ export const ResultPage: React.FC<ResultPageProps> = ({
             <p className="report-subtitle">디자인 학부생 포트폴리오 컨설팅용 사전 자기진단 리포트</p>
           </div>
           <div className="report-meta-box">
+            <div className="meta-row">
+              <span className="meta-label">이메일</span>
+              <span className="meta-val">{studentInfo.email}</span>
+            </div>
             <div className="meta-row">
               <span className="meta-label">이름</span>
               <span className="meta-val">{studentInfo.name}</span>
@@ -179,7 +104,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         </header>
 
         {/* 1. Diagnostic Summary Banner */}
-        {isConsultantMode && (
+        {showFullReport && (
           <section className="report-section summary-section">
             <h2 className="report-section-title">종합 결과 요약 (Diagnostic Summary)</h2>
             <div className="glass-panel summary-panel">
@@ -194,7 +119,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         </section>
 
         {/* 3. Strengths & Areas to Check (Two-column) */}
-        {isConsultantMode && (
+        {showFullReport && (
           <section className="report-section two-col-section">
             <div className="col-box strengths-box">
               <h3 className="section-col-title text-success">강점 후보 (Strength Candidates)</h3>
@@ -279,7 +204,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         </section>
 
         {/* 6. Portfolio Development Directions & Consulting Priorities (Two-column) */}
-        {isConsultantMode && (
+        {showFullReport && (
           <section className="report-section two-col-section">
             <div className="col-box directions-box">
               <h3 className="section-col-title text-primary">추천 포트폴리오 전개 방향</h3>
@@ -302,7 +227,7 @@ export const ResultPage: React.FC<ResultPageProps> = ({
         )}
 
         {/* 7. Consistency Alerts (OnePage print-friendly alert) */}
-        {isConsultantMode && (
+        {showFullReport && (
           <section className="report-section consistency-section">
             <h2 className="report-section-title">응답 일관성 경고 (Response Consistency Alerts)</h2>
             {consistencyAlerts.length === 0 ? (
@@ -337,44 +262,6 @@ export const ResultPage: React.FC<ResultPageProps> = ({
           <p className="copyright-text">© {new Date().getFullYear()} Designer InBody Standard Scan. All rights reserved.</p>
         </footer>
       </div>
-
-      {showPinModal && (
-        <div className="pin-modal-backdrop print-hide" role="presentation">
-          <form className="pin-modal" onSubmit={handlePinSubmit}>
-            <h2 className="pin-modal-title">컨설턴트 모드</h2>
-            <p className="pin-modal-desc">전체 결과지를 보려면 PIN 번호를 입력하세요.</p>
-            <input
-              type="password"
-              inputMode="numeric"
-              autoFocus
-              className="pin-input"
-              value={pinInput}
-              onChange={(event) => {
-                setPinInput(event.target.value);
-                setPinError('');
-              }}
-              aria-label="컨설턴트 PIN 번호"
-            />
-            {pinError && <p className="pin-error">{pinError}</p>}
-            <div className="pin-modal-actions">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={() => {
-                  setShowPinModal(false);
-                  setPinInput('');
-                  setPinError('');
-                }}
-              >
-                취소
-              </button>
-              <button type="submit" className="btn btn-primary">
-                확인
-              </button>
-            </div>
-          </form>
-        </div>
-      )}
     </div>
   );
 };
